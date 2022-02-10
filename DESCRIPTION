@@ -17,3 +17,16 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 URL: https://github.com/mcguinlu/triangulate
 BugReports: https://github.com/mcguinlu/triangulate/issues
+Suggests: 
+    testthat (>= 3.0.0),
+    rmarkdown
+Config/testthat/edition: 3
+Imports: 
+    dplyr,
+    tidyr,
+    stringr,
+    robvis (>= 0.3.0.900)
+Depends: 
+    R (>= 2.10)
+Remotes: 
+    mcguinlu/robvis

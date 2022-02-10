@@ -1,0 +1,26 @@
+---
+title: "Creating triangulation datasets"
+---
+
+:warning: This page is still under construction
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(triangulate)
+```
+
+## Assessment datasets
+
+### Bias
+
+
+### Indirectness
+
+
+## Distribution datasets

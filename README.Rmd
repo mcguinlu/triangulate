@@ -17,39 +17,130 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/mcguinlu/triangulate/workflows/R-CMD-check/badge.svg)](https://github.com/mcguinlu/triangulate/actions)
 <!-- badges: end -->
 
-The goal of triangulate is to ...
+The goal of triangulate is to create a generalised version of the bias-adjusted meta-analysis approach originally proposed by Turner et al. 
+
 
 ## Installation
 
-You can install the released version of triangulate from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("triangulate")
+``` {r, eval = FALSE}
+devtools::install_github("mcguinlutriangulate")
 ```
+
+## :warning: WARNING NOTES
+
+<hr>
+
+> *WARNING #1:* This package is under development, and as such the API is subject to change at any point without warning.
+
+<hr>
+
+> *WARNING #2:* The approach described requires work in the preparation of data to work with the package. Please be sure to read the documentation and make use of helper functions to check whether your data is set-up right.
+
+<hr>
+
+> *WARNING #3:* The approach described requires careful choice of valid prior distributions of bias/indirectness.
+
+<hr>
+
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+### Datasets
 
-```{r example}
+```{r}
+# Load libraries
+library(magrittr)
 library(triangulate)
-## basic example code
+
+# See column names of dat_bias
+
+colnames(dat_bias)
+
+head(dat_bias)
+
+tri_dat_check(dat_bias)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+A similar dataset exists for 
 
-```{r cars}
-summary(cars)
+For details
+
+### Absolute directions of bias
+
+The best way to think about this is to consider an example, plotted on a standard forest plot. 
+
+For _additive_ bias/indirectness, the position of the point estimate does not effect the absolute direction of bias. That is, regardless of whether the point estimate is above or below the null, the absolute direction of bias/indirectness will be the same.
+
+In contrast, for _proportional bias/indirectness_, the absolute direction of bias depends on the position of the effect estimate. For example, if the effect estimate represents a protective effect (below the null), then bias towards the null would be adjusted for by moving the effect estimate proportionally to the right. In contrast, if the effect of the intervention is harmful (effect estimate above the null), bias towards the null would be adjusted for by moving the effect estimate proportionally to the left.
+
+Both scenarios are illustrated in the figure below:
+
+![](man/figures/exampleDirection.png)
+
+Once we load our data, helper functions will convert it to _long_ format and convert to absolute directions of bias/indirectness.
+
+```{r}
+
+dat_bias <- triangulate::dat_bias %>%
+
+# Convert to long format
+tri_to_long() %>%
+  
+tri_absolute_direction() %>%
+
+tri_append_bias(triangulate::dat_bias_values)
+
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
+Then apply the same approach to the indirectness dataset:
 
-You can also embed plots, for example:
+```{r}
+dat_ind <- triangulate::dat_ind %>%
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+# Convert to long format
+tri_to_long() %>%
+  
+tri_absolute_direction() %>%
+  
+tri_append_indirect(triangulate::dat_ind_values)
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+
+## Add prior distributions of bias/indirectness
+
+```{r}
+dat_bias_values
+```
+
+
+## Create final dataset and analyse
+
+We now have two clean datasets, one for bias and one for indirectness, that we can use to 
+
+``` {r}
+dat_final <- tri_prep_data(dat_bias, dat_ind)
+```
+
+At this point, we have an unadjusted (_yi_, _vi_) and adjusted (_yi_adj_, _vi_adj_) estimates for each result.
+
+These estimates can then simply be passed to `metafor` for analysis
+
+``` {r, out.height = 600,out.height=400}
+
+model_adj <- metafor::rma.uni(
+  yi = yi_adj,
+  vi = vi_adj,
+  data = dat_final,
+  slab = dat_final$study,
+)
+
+# Pass model to forest plot function
+metafor::forest(
+  model_adj,
+  atransf = exp,
+)
+
+```
