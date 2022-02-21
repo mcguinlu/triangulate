@@ -4,6 +4,12 @@
     <loc>https://mcguinlu.github.io/triangulate/404.html</loc>
   </url>
   <url>
+    <loc>https://mcguinlu.github.io/triangulate/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://mcguinlu.github.io/triangulate/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>https://mcguinlu.github.io/triangulate/articles/Creating-triangulation-datasets.html</loc>
   </url>
   <url>
@@ -19,7 +25,22 @@
     <loc>https://mcguinlu.github.io/triangulate/news/index.html</loc>
   </url>
   <url>
+    <loc>https://mcguinlu.github.io/triangulate/reference/dat_bias.html</loc>
+  </url>
+  <url>
+    <loc>https://mcguinlu.github.io/triangulate/reference/dat_bias_values.html</loc>
+  </url>
+  <url>
+    <loc>https://mcguinlu.github.io/triangulate/reference/dat_ind.html</loc>
+  </url>
+  <url>
+    <loc>https://mcguinlu.github.io/triangulate/reference/dat_ind_values.html</loc>
+  </url>
+  <url>
     <loc>https://mcguinlu.github.io/triangulate/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://mcguinlu.github.io/triangulate/reference/pipe.html</loc>
   </url>
   <url>
     <loc>https://mcguinlu.github.io/triangulate/reference/tri_absolute_direction.html</loc>
@@ -50,5 +71,8 @@
   </url>
   <url>
     <loc>https://mcguinlu.github.io/triangulate/reference/tri_to_wide.html</loc>
+  </url>
+  <url>
+    <loc>https://mcguinlu.github.io/triangulate/reference/triangulate-package.html</loc>
   </url>
 </urlset>

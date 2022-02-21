@@ -3,7 +3,7 @@ pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   Creating-triangulation-datasets: Creating-triangulation-datasets.html
-last_built: 2022-02-21T16:18Z
+last_built: 2022-02-21T17:10Z
 urls:
   reference: https://mcguinlu.github.io/triangulate/reference
   article: https://mcguinlu.github.io/triangulate/articles
