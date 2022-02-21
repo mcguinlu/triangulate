@@ -7,10 +7,7 @@
 tri_calculate_adjusted_estimates(dat)
 }
 \arguments{
-\item{data}{}
-}
-\value{
-
+\item{dat}{Data in long format}
 }
 \description{
 Title

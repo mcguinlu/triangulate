@@ -1,12 +1,10 @@
 #' Title
 #'
-#' @param dat
-#' @param types
+#' @param dat Data in long format
+#' @param types Vector of study types for which the direction should be reversed
 #'
-#' @return
 #' @export
 #'
-#' @examples
 tri_swap_effect_direction <- function(dat, types = NULL) {
   dat %>%
     # Standardise effect direction

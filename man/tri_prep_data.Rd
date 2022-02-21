@@ -7,10 +7,9 @@
 tri_prep_data(dat_bias, dat_ind)
 }
 \arguments{
-\item{indirect_values}{}
-}
-\value{
+\item{dat_bias}{Cleaned bias dataset}
 
+\item{dat_ind}{Cleaned indirectness dataset}
 }
 \description{
 Title

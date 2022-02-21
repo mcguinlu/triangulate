@@ -7,10 +7,9 @@
 tri_swap_effect_direction(dat, types = NULL)
 }
 \arguments{
-\item{types}{}
-}
-\value{
+\item{dat}{Data in long format}
 
+\item{types}{Vector of study types for which the direction should be reversed}
 }
 \description{
 Title

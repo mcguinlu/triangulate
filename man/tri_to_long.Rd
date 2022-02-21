@@ -7,10 +7,7 @@
 tri_to_long(dat)
 }
 \arguments{
-\item{dat}{}
-}
-\value{
-
+\item{dat}{Data in wide format}
 }
 \description{
 Title

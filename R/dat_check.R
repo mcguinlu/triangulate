@@ -1,11 +1,9 @@
 #' Title
 #'
-#' @param dat
+#' @param dat Data
 #'
-#' @return
 #' @export
 #'
-#' @examples
 tri_dat_check <- function(dat) {
   cols <- colnames(dat)
 

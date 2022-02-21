@@ -43,14 +43,9 @@ devtools::install_github("mcguinlutriangulate")
 
 ## Example
 
-<hr>
+### Datasets
 
-> *WARNING:* This package is under development, and as such the API is
-> subject to change at any point without warning.
-
-<hr>
-
-### Data
+The approach described
 
 ``` r
 # Load libraries
@@ -102,6 +97,8 @@ tri_dat_check(dat_bias)
 #> All expected columns are present in the dataset.
 ```
 
+For details
+
 ### Absolute directions of bias
 
 The best way to think about this is to consider an example, plotted on a
@@ -152,6 +149,18 @@ tri_absolute_direction() %>%
 tri_append_indirect(triangulate::dat_ind_values)
 ```
 
+## Add prior distributions of bias/indirectness
+
+``` r
+dat_bias_values
+#>   domain        j bias_m_add bias_v_add bias_m_prop bias_v_prop
+#> 1    all     high       0.18       0.10        0.06       0.032
+#> 2    all moderate       0.09       0.05        0.03       0.016
+#> 3    all      low       0.00       0.00        0.00       0.000
+```
+
+## Create final dataset and analyse
+
 We now have two clean datasets, one for bias and one for indirectness,
 that we can use to
 
@@ -184,4 +193,4 @@ metafor::forest(
 )
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" height="400" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" height="400" />

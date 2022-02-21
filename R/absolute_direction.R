@@ -1,8 +1,7 @@
 #' Title
 #'
-#' @param dat
+#' @param dat Data in long format
 #'
-#' @return
 #' @export
 tri_absolute_direction <- function(dat){
   dat %>%
@@ -30,9 +29,8 @@ tri_absolute_direction <- function(dat){
 
 #' Title
 #'
-#' @param dat
+#' @param dat Data in long format
 #'
-#' @return
 #' @export
 tri_absolute_direction_invert <- function(dat){
   dat %>%

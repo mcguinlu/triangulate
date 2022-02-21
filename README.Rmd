@@ -66,7 +66,7 @@ head(dat_bias)
 tri_dat_check(dat_bias)
 ```
 
-For details
+For details on how to create these datasets, see the [Creating triangulation datasets]( https://mcguinlu.github.io/triangulate/articles/Creating-triangulation-datasets.html) vignette (under construction).
 
 ### Absolute directions of bias
 

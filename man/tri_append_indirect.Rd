@@ -4,13 +4,15 @@
 \alias{tri_append_indirect}
 \title{Title}
 \usage{
-tri_append_indirect(data, values, common = T)
+tri_append_indirect(dat, values, common = T)
 }
 \arguments{
-\item{common}{}
-}
-\value{
+\item{dat}{Indirectness dataframe in long format}
 
+\item{values}{Distributions of bias for different risk of indirectness levels}
+
+\item{common}{Should a single set of distributions be used across all domains
+(default is TRUE)?}
 }
 \description{
 Title

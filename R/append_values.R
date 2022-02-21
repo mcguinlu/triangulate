@@ -1,17 +1,17 @@
 #' Title
 #'
-#' @param data
-#' @param values
-#' @param common
+#' @param dat Bias dataframe in long format
+#' @param values Distributions of bias for different risk of bias levels
+#' @param common Should a single set of distributions be used across all domains
+#'   (default is TRUE)?
 #'
-#' @return
 #' @export
 
-tri_append_bias <- function(data, values, common = T) {
+tri_append_bias <- function(dat, values, common = T) {
 
   values <- values %>%
     janitor::clean_names() %>%
-    dplyr::mutate(dplyr::across(starts_with("bias_"), as.double)) %>%
+    dplyr::mutate(dplyr::across(dplyr::starts_with("bias_"), as.double)) %>%
     dplyr::mutate(dplyr::across(c(domain,j), stringr::str_to_lower))
 
   # Define criteria on which to join with values#
@@ -27,7 +27,7 @@ tri_append_bias <- function(data, values, common = T) {
     by = c("domain","j")
   }
 
-  data %>%
+  dat %>%
     janitor::clean_names() %>%
 
     # Add basic values
@@ -67,14 +67,14 @@ tri_append_bias <- function(data, values, common = T) {
 
 #' Title
 #'
-#' @param data
-#' @param values
-#' @param common
+#' @param dat Indirectness dataframe in long format
+#' @param values Distributions of bias for different risk of indirectness levels
+#' @param common Should a single set of distributions be used across all domains
+#'   (default is TRUE)?
 #'
-#' @return
 #' @export
 
-tri_append_indirect <- function(data, values, common = T) {
+tri_append_indirect <- function(dat, values, common = T) {
 
   # Define criteria on which to join with values#
   # If common = T, means that the values of Serious/Moderate are consistent across domains
@@ -89,7 +89,7 @@ tri_append_indirect <- function(data, values, common = T) {
     by = c("domain","j")
   }
 
-  data %>%
+  dat %>%
     # Add basic values
     dplyr::left_join(values, by = by) %>%
 

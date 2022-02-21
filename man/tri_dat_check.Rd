@@ -7,10 +7,7 @@
 tri_dat_check(dat)
 }
 \arguments{
-\item{dat}{}
-}
-\value{
-
+\item{dat}{Data}
 }
 \description{
 Title

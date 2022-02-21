@@ -4,13 +4,15 @@
 \alias{tri_append_bias}
 \title{Title}
 \usage{
-tri_append_bias(data, values, common = T)
+tri_append_bias(dat, values, common = T)
 }
 \arguments{
-\item{common}{}
-}
-\value{
+\item{dat}{Bias dataframe in long format}
 
+\item{values}{Distributions of bias for different risk of bias levels}
+
+\item{common}{Should a single set of distributions be used across all domains
+(default is TRUE)?}
 }
 \description{
 Title

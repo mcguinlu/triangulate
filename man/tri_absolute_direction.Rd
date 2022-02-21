@@ -7,10 +7,7 @@
 tri_absolute_direction(dat)
 }
 \arguments{
-\item{dat}{}
-}
-\value{
-
+\item{dat}{Data in long format}
 }
 \description{
 Title

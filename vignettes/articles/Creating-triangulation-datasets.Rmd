@@ -2,7 +2,7 @@
 title: "Creating triangulation datasets"
 ---
 
-:warning: This page is still under construction
+**WARNING:** This page is still under construction
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(

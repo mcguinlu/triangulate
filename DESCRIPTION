@@ -26,7 +26,9 @@ Imports:
     tidyr,
     stringr,
     robvis (>= 0.3.0.900),
-    knitr
+    knitr,
+    magrittr,
+    janitor
 Depends: 
     R (>= 2.10)
 Remotes: 
