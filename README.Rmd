@@ -50,6 +50,8 @@ devtools::install_github("mcguinlutriangulate")
 
 ### Datasets
 
+The approach described
+
 ```{r}
 # Load libraries
 library(magrittr)
@@ -63,8 +65,6 @@ head(dat_bias)
 
 tri_dat_check(dat_bias)
 ```
-
-A similar dataset exists for 
 
 For details
 

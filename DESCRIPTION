@@ -25,7 +25,8 @@ Imports:
     dplyr,
     tidyr,
     stringr,
-    robvis (>= 0.3.0.900)
+    robvis (>= 0.3.0.900),
+    knitr
 Depends: 
     R (>= 2.10)
 Remotes: 
