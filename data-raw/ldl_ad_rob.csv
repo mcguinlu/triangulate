@@ -1,0 +1,24 @@
+result_id,type,yi,sei,d1j,d1d,d1t,d2j,d2d,d2t,d3j,d3d,d3t,d4j,d4d,d4t,d5j,d5d,d5t,d6j,d6d,d6t,d7j,d7d,d7t,overall
+13401-2,NRSI,-0.127833372,0.353646521,Serious,Left,Add,Low,None,None,Moderate,Unpredictable,Prop,Low,None,None,Low,None,None,Low,None,None,Moderate,Left,Prop,Serious
+14632-2,NRSI,-0.198450939,0.294633986,Moderate,Right,Add,Moderate,Left,Add,Low,None,None,Low,None,None,Low,None,None,Moderate,Unpredictable,Add,Moderate,Left,Prop,Moderate
+14658-2,NRSI,-0.186329578,0.183336858,Serious,Left,Add,Serious,Left,Add,Low,None,None,Low,None,None,Low,None,None,Moderate,Unpredictable,Add,Moderate,Left,Prop,Serious
+14665-6,NRSI,0.19062036,0.235086757,Serious,Left,Add,Moderate,Unpredictable,Add,Low,None,None,Low,None,None,Low,None,None,Low,None,None,Moderate,Right,Prop,Serious
+14720-1,NRSI,-0.562118918,0.226758101,Serious,Left,Add,Low,None,None,Low,None,None,Low,None,None,Moderate,Unpredictable,Prop,Low,None,None,Moderate,Left,Prop,Serious
+14761-1,NRSI,-0.094310679,0.264004203,Serious,Left,Add,Moderate,Left,Add,Low,None,None,Low,None,None,Moderate,Unpredictable,Prop,Low,None,None,Moderate,Left,Prop,Serious
+14763-3,NRSI,-0.776528789,0.238971751,Moderate,Right,Add,Low,None,None,Moderate,Unpredictable,Prop,Low,None,None,Serious,Unpredictable,Prop,Low,None,None,Moderate,Left,Prop,Serious
+2140-23,NRSE,-0.061875404,0.126793954,Moderate,Left,Add,Low,None,None,Low,None,None,Low,None,None,Moderate,Unpredictable,Prop,Low,None,None,Moderate,Left,Prop,Moderate
+2140-24,NRSE,0.019802627,0.150318262,Moderate,Left,Add,Low,None,None,Low,None,None,Low,None,None,Moderate,Unpredictable,Prop,Low,None,None,Moderate,Right,Prop,Moderate
+2140-25,NRSE,-0.105360516,0.180840698,Moderate,Left,Add,Low,None,None,Low,None,None,Low,None,None,Moderate,Unpredictable,Prop,Low,None,None,Moderate,Left,Prop,Moderate
+2439-3,MR - LDL,0.067658648,0.045205729,Moderate,Unpredictable,Prop,Low,None,None,Low,None,None,Low,None,None,Low,None,None,NA,None,None,NA,None,None,Moderate
+366-1,NRSI,-0.478035801,0.22597743,Serious,Left,Add,Moderate,Left,Add,Low,None,None,Low,None,None,Moderate,Unpredictable,Prop,Low,None,None,Moderate,Left,Prop,Serious
+5245-7,NRSE,0.113328685,0.045269226,Serious,Right,Add,Moderate,Unpredictable,Add,Low,None,None,Low,None,None,Low,None,None,Low,None,None,Moderate,Right,Prop,Serious
+5397-2,NRSI,0.173953307,0.544645763,Serious,Left,Add,Moderate,Unpredictable,Add,Low,None,None,Low,None,None,Serious,Unpredictable,Prop,Low,None,None,Moderate,Right,Prop,Serious
+5965-2,NRSI,-0.210721031,0.258534306,Moderate,Left,Add,Low,None,None,Low,None,None,Low,None,None,Low,None,None,Moderate,Unpredictable,Add,Moderate,Left,Prop,Moderate
+90002-8,NRSE,-0.116533816,0.17682326,Serious,Left,Add,Low,None,None,Low,None,None,Low,None,None,Low,None,None,Low,None,None,Moderate,Left,Prop,Serious
+90005-1,MR - HMGCR,-0.204,0.232,Moderate,Right,Prop,Moderate,Unpredictable,Add,Low,None,None,Moderate,Unpredictable,Add,Moderate,Unpredictable,Prop,NA,None,None,NA,None,None,Moderate
+9429-6,NRSI,0.157003749,0.192288725,Moderate,Left,Add,Moderate,Unpredictable,Add,Low,None,None,Low,None,None,Low,None,None,Low,None,None,Moderate,Right,Prop,Moderate
+9429-8,NRSI,0.086177696,0.246375351,Moderate,Left,Add,Moderate,Unpredictable,Add,Low,None,None,Low,None,None,Low,None,None,Low,None,None,Moderate,Right,Prop,Moderate
+9740-16,MR - HMGCR,-0.527,0.437,Low,None,None,Low,None,None,Low,None,None,Moderate,Unpredictable,Add,Moderate,Unpredictable,Add,NA,None,None,NA,None,None,Moderate
+999-1,NRSI,-0.02020271,0.01832289,Moderate,Right,Add,Low,None,None,Low,None,None,Low,None,None,Low,None,None,Serious,Unpredictable,Add,Moderate,Left,Prop,Serious
+14670-2,NRSI,-0.9162907,0.4133897,Serious,Right,Add,Low,None,None,Low,None,None,Low,None,None,Low,None,None,Serious,Unpredictable,Add,Moderate,Left,Prop,Serious
+2016-1,NRSI,-0.4942963,0.1857751,Moderate,Right,Add,Moderate,Unpredictable,Add,Low,None,None,Low,None,None,Low,None,None,Moderate,Unpredictable,Add,Moderate,Left,Prop,Moderate
