@@ -36,11 +36,11 @@ tri_to_wide <- function(dat) {
   # Get columns back into proper order
   # It is not pretty but it works
   # TODO Clean this up
-  dat2 <- select(dat, dplyr::matches("^d.j$|^d.t$|^d.d$"))
+  dat2 <- dplyr::select(dat, dplyr::matches("^d.j$|^d.t$|^d.d$"))
 
   n_domains <- ncol(dat2) / 3
 
-  dat3 <- select(dat, !dplyr::matches("^d.j$|^d.t$|^d.d$"))
+  dat3 <- dplyr::select(dat, !dplyr::matches("^d.j$|^d.t$|^d.d$"))
 
   for (i in 1:n_domains) {
     dat3 <- cbind(dat3, dat2[seq(i, ncol(dat2), by = n_domains)])
