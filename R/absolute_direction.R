@@ -57,3 +57,35 @@ tri_absolute_direction_invert <- function(dat){
   }
 
 
+#' Title
+#'
+#' @description A helper function to quickly convert from relative to absolute
+#'   directions of bias, or vice versa
+#'
+#' @param dat Triangulation dataset
+#' @param invert Direction indicator
+#'
+#' @export
+tri_absolute_direction_quick <- function(dat, invert = FALSE){
+
+  if (invert) {
+
+    dat %>%
+      tri_to_long() %>%
+      tri_absolute_direction_invert() %>%
+      tri_to_wide() %>%
+      return()
+
+  } else {
+
+    dat %>%
+      tri_to_long() %>%
+      tri_absolute_direction() %>%
+      tri_to_wide() %>%
+      return()
+
+  }
+
+}
+
+

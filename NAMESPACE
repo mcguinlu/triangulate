@@ -3,6 +3,7 @@
 export("%>%")
 export(tri_absolute_direction)
 export(tri_absolute_direction_invert)
+export(tri_absolute_direction_quick)
 export(tri_append_bias)
 export(tri_append_indirect)
 export(tri_dat_check)
