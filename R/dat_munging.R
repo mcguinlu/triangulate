@@ -24,11 +24,28 @@ tri_to_long <- function(dat){
 #'
 #' @export
 tri_to_wide <- function(dat) {
-  dat %>%
+  dat <- dat %>%
     tidyr::pivot_wider(
       names_glue = "{domain}{.value}",
       names_from = "domain",
       values_from = dplyr::matches("j$|^t$|^d$")
     ) %>%
     return()
+
+
+  # Get columns back into proper order
+  # It is not pretty but it works
+  # TODO Clean this up
+  dat2 <- select(dat, dplyr::matches("^d.j$|^d.t$|^d.d$"))
+
+  n_domains <- ncol(dat2) / 3
+
+  dat3 <- select(dat, !dplyr::matches("^d.j$|^d.t$|^d.d$"))
+
+  for (i in 1:n_domains) {
+    dat3 <- cbind(dat3, dat2[seq(i, ncol(dat2), by = n_domains)])
+
+  }
+
+  return(tidyr::as_tibble(dat3))
 }
