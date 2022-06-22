@@ -25,6 +25,7 @@ Imports:
     janitor
 Suggests: 
     testthat (>= 3.0.0),
+    robvis (>=0.3.0.900)
     knitr,
     rmarkdown
 Config/testthat/edition: 3
