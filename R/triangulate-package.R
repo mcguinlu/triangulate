@@ -35,5 +35,6 @@ globalVariables(c(
   "type",
   "vi",
   "yi",
-  "yi_adj"
+  "yi_adj",
+  "."
 ))
