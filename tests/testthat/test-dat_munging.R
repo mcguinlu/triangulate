@@ -1,10 +1,10 @@
-dat <- robvis::data_bias_direction_raw %>%
+dat <- robvis::data_bias_direction %>%
   tri_to_long() %>%
   tri_absolute_direction() %>%
   tri_to_wide()
 
 
-dat_quick <- robvis::data_bias_direction_raw %>%
+dat_quick <- robvis::data_bias_direction %>%
   tri_absolute_direction_quick()
 
 test_that("cleaned dimensions are correct", {
