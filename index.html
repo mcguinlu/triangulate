@@ -86,7 +86,7 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mcguinlutriangulate"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mcguinlutriangulate"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="️-warning-notes">
@@ -108,53 +108,53 @@
 </h3>
 <p>The approach described</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Load libraries</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span>
-<span class="co">#&gt; Warning: package 'magrittr' was built under R version 3.6.3</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mcguinlu.github.io/triangulate">triangulate</a></span><span class="op">)</span>
-
-<span class="co"># See column names of dat_bias</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dat_bias</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "result_id" "study"     "type"      "yi"        "vi"        "d1j"      </span>
-<span class="co">#&gt;  [7] "d2j"       "d3j"       "d4j"       "d5j"       "d6j"       "d7j"      </span>
-<span class="co">#&gt; [13] "d1t"       "d2t"       "d3t"       "d4t"       "d5t"       "d6t"      </span>
-<span class="co">#&gt; [19] "d7t"       "d1d"       "d2d"       "d3d"       "d4d"       "d5d"      </span>
-<span class="co">#&gt; [25] "d6d"       "d7d"</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dat_bias</span><span class="op">)</span>
-<span class="co">#&gt;   result_id   study type          yi         vi      d1j      d2j      d3j d4j</span>
-<span class="co">#&gt; 1   13401-2 Study 1 NRSI -0.12783337 0.12506586     High      Low Moderate Low</span>
-<span class="co">#&gt; 2   14632-2 Study 2 NRSI -0.19845094 0.08680919 Moderate Moderate      Low Low</span>
-<span class="co">#&gt; 3   14658-2 Study 3 NRSI -0.18632958 0.03361240     High     High      Low Low</span>
-<span class="co">#&gt; 4   14665-6 Study 4 NRSI  0.19062036 0.05526578     High Moderate      Low Low</span>
-<span class="co">#&gt; 5   14720-1 Study 5 NRSI -0.56211892 0.05141924     High      Low      Low Low</span>
-<span class="co">#&gt; 6   14761-1 Study 6 NRSI -0.09431068 0.06969822     High Moderate      Low Low</span>
-<span class="co">#&gt;        d5j      d6j      d7j d1t  d2t  d3t  d4t  d5t  d6t  d7t</span>
-<span class="co">#&gt; 1      Low      Low Moderate Add None Prop None None None Prop</span>
-<span class="co">#&gt; 2      Low Moderate Moderate Add  Add None None None  Add Prop</span>
-<span class="co">#&gt; 3      Low Moderate Moderate Add  Add None None None  Add Prop</span>
-<span class="co">#&gt; 4      Low      Low Moderate Add  Add None None None None Prop</span>
-<span class="co">#&gt; 5 Moderate      Low Moderate Add None None None Prop None Prop</span>
-<span class="co">#&gt; 6 Moderate      Low Moderate Add  Add None None Prop None Prop</span>
-<span class="co">#&gt;                    d1d                d2d           d3d  d4d           d5d</span>
-<span class="co">#&gt; 1   Favours comparator               None Unpredictable None          None</span>
-<span class="co">#&gt; 2 Favours experimental Favours comparator          None None          None</span>
-<span class="co">#&gt; 3   Favours comparator Favours comparator          None None          None</span>
-<span class="co">#&gt; 4   Favours comparator      Unpredictable          None None          None</span>
-<span class="co">#&gt; 5   Favours comparator               None          None None Unpredictable</span>
-<span class="co">#&gt; 6   Favours comparator Favours comparator          None None Unpredictable</span>
-<span class="co">#&gt;             d6d            d7d</span>
-<span class="co">#&gt; 1          None Away from null</span>
-<span class="co">#&gt; 2 Unpredictable Away from null</span>
-<span class="co">#&gt; 3 Unpredictable Away from null</span>
-<span class="co">#&gt; 4          None Away from null</span>
-<span class="co">#&gt; 5          None Away from null</span>
-<span class="co">#&gt; 6          None Away from null</span>
-
-<span class="fu"><a href="reference/tri_dat_check.html">tri_dat_check</a></span><span class="op">(</span><span class="va">dat_bias</span><span class="op">)</span>
-<span class="co">#&gt; Looks good!</span>
-<span class="co">#&gt; All expected columns are present in the dataset.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Load libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'magrittr' was built under R version 3.6.3</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mcguinlu.github.io/triangulate">triangulate</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># See column names of dat_bias</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dat_bias</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "result_id" "study"     "type"      "yi"        "vi"        "d1j"      </span></span>
+<span><span class="co">#&gt;  [7] "d2j"       "d3j"       "d4j"       "d5j"       "d6j"       "d7j"      </span></span>
+<span><span class="co">#&gt; [13] "d1t"       "d2t"       "d3t"       "d4t"       "d5t"       "d6t"      </span></span>
+<span><span class="co">#&gt; [19] "d7t"       "d1d"       "d2d"       "d3d"       "d4d"       "d5d"      </span></span>
+<span><span class="co">#&gt; [25] "d6d"       "d7d"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dat_bias</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   result_id   study type          yi         vi      d1j      d2j      d3j d4j</span></span>
+<span><span class="co">#&gt; 1   13401-2 Study 1 NRSI -0.12783337 0.12506586     High      Low Moderate Low</span></span>
+<span><span class="co">#&gt; 2   14632-2 Study 2 NRSI -0.19845094 0.08680919 Moderate Moderate      Low Low</span></span>
+<span><span class="co">#&gt; 3   14658-2 Study 3 NRSI -0.18632958 0.03361240     High     High      Low Low</span></span>
+<span><span class="co">#&gt; 4   14665-6 Study 4 NRSI  0.19062036 0.05526578     High Moderate      Low Low</span></span>
+<span><span class="co">#&gt; 5   14720-1 Study 5 NRSI -0.56211892 0.05141924     High      Low      Low Low</span></span>
+<span><span class="co">#&gt; 6   14761-1 Study 6 NRSI -0.09431068 0.06969822     High Moderate      Low Low</span></span>
+<span><span class="co">#&gt;        d5j      d6j      d7j d1t  d2t  d3t  d4t  d5t  d6t  d7t</span></span>
+<span><span class="co">#&gt; 1      Low      Low Moderate Add None Prop None None None Prop</span></span>
+<span><span class="co">#&gt; 2      Low Moderate Moderate Add  Add None None None  Add Prop</span></span>
+<span><span class="co">#&gt; 3      Low Moderate Moderate Add  Add None None None  Add Prop</span></span>
+<span><span class="co">#&gt; 4      Low      Low Moderate Add  Add None None None None Prop</span></span>
+<span><span class="co">#&gt; 5 Moderate      Low Moderate Add None None None Prop None Prop</span></span>
+<span><span class="co">#&gt; 6 Moderate      Low Moderate Add  Add None None Prop None Prop</span></span>
+<span><span class="co">#&gt;                    d1d                d2d           d3d  d4d           d5d</span></span>
+<span><span class="co">#&gt; 1   Favours comparator               None Unpredictable None          None</span></span>
+<span><span class="co">#&gt; 2 Favours experimental Favours comparator          None None          None</span></span>
+<span><span class="co">#&gt; 3   Favours comparator Favours comparator          None None          None</span></span>
+<span><span class="co">#&gt; 4   Favours comparator      Unpredictable          None None          None</span></span>
+<span><span class="co">#&gt; 5   Favours comparator               None          None None Unpredictable</span></span>
+<span><span class="co">#&gt; 6   Favours comparator Favours comparator          None None Unpredictable</span></span>
+<span><span class="co">#&gt;             d6d            d7d</span></span>
+<span><span class="co">#&gt; 1          None Away from null</span></span>
+<span><span class="co">#&gt; 2 Unpredictable Away from null</span></span>
+<span><span class="co">#&gt; 3 Unpredictable Away from null</span></span>
+<span><span class="co">#&gt; 4          None Away from null</span></span>
+<span><span class="co">#&gt; 5          None Away from null</span></span>
+<span><span class="co">#&gt; 6          None Away from null</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/tri_dat_check.html">tri_dat_check</a></span><span class="op">(</span><span class="va">dat_bias</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Looks good!</span></span>
+<span><span class="co">#&gt; All expected columns are present in the dataset.</span></span></code></pre></div>
 <p>For details</p>
 </div>
 <div class="section level3">
@@ -167,62 +167,62 @@
 <p><img src="reference/figures/exampleDirection.png"></p>
 <p>Once we load our data, helper functions will convert it to <em>long</em> format and convert to absolute directions of bias/indirectness.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat_bias</span> <span class="op">&lt;-</span> <span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_bias.html">dat_bias</a></span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-
-<span class="co"># Convert to long format</span>
-<span class="fu"><a href="reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  
-<span class="fu"><a href="reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-
-<span class="fu"><a href="reference/tri_append_bias.html">tri_append_bias</a></span><span class="op">(</span><span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_bias_values.html">dat_bias_values</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat_bias</span> <span class="op">&lt;-</span> <span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_bias.html">dat_bias</a></span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span></span>
+<span><span class="co"># Convert to long format</span></span>
+<span><span class="fu"><a href="reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span><span class="fu"><a href="reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span></span>
+<span><span class="fu"><a href="reference/tri_append_bias.html">tri_append_bias</a></span><span class="op">(</span><span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_bias_values.html">dat_bias_values</a></span><span class="op">)</span></span></code></pre></div>
 <p>Then apply the same approach to the indirectness dataset:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat_ind</span> <span class="op">&lt;-</span> <span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_ind.html">dat_ind</a></span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-
-<span class="co"># Convert to long format</span>
-<span class="fu"><a href="reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  
-<span class="fu"><a href="reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  
-<span class="fu"><a href="reference/tri_append_indirect.html">tri_append_indirect</a></span><span class="op">(</span><span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_ind_values.html">dat_ind_values</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat_ind</span> <span class="op">&lt;-</span> <span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_ind.html">dat_ind</a></span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span></span>
+<span><span class="co"># Convert to long format</span></span>
+<span><span class="fu"><a href="reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span><span class="fu"><a href="reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span><span class="fu"><a href="reference/tri_append_indirect.html">tri_append_indirect</a></span><span class="op">(</span><span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_ind_values.html">dat_ind_values</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="add-prior-distributions-of-biasindirectness">Add prior distributions of bias/indirectness<a class="anchor" aria-label="anchor" href="#add-prior-distributions-of-biasindirectness"></a>
 </h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat_bias_values</span>
-<span class="co">#&gt;   domain        j bias_m_add bias_v_add bias_m_prop bias_v_prop</span>
-<span class="co">#&gt; 1    all     high       0.18       0.10        0.06       0.032</span>
-<span class="co">#&gt; 2    all moderate       0.09       0.05        0.03       0.016</span>
-<span class="co">#&gt; 3    all      low       0.00       0.00        0.00       0.000</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat_bias_values</span></span>
+<span><span class="co">#&gt;   domain        j bias_m_add bias_v_add bias_m_prop bias_v_prop</span></span>
+<span><span class="co">#&gt; 1    all     high       0.18       0.10        0.06       0.032</span></span>
+<span><span class="co">#&gt; 2    all moderate       0.09       0.05        0.03       0.016</span></span>
+<span><span class="co">#&gt; 3    all      low       0.00       0.00        0.00       0.000</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="create-final-dataset-and-analyse">Create final dataset and analyse<a class="anchor" aria-label="anchor" href="#create-final-dataset-and-analyse"></a>
 </h2>
 <p>We now have two clean datasets, one for bias and one for indirectness, that we can use to</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat_final</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tri_prep_data.html">tri_prep_data</a></span><span class="op">(</span><span class="va">dat_bias</span>, <span class="va">dat_ind</span><span class="op">)</span>
-<span class="co">#&gt; Joining, by = "result_id"</span>
-<span class="co">#&gt; Joining, by = "result_id"</span>
-<span class="co">#&gt; Joining, by = "result_id"</span>
-<span class="co">#&gt; Joining, by = "result_id"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat_final</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tri_prep_data.html">tri_prep_data</a></span><span class="op">(</span><span class="va">dat_bias</span>, <span class="va">dat_ind</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Joining, by = "result_id"</span></span>
+<span><span class="co">#&gt; Joining, by = "result_id"</span></span>
+<span><span class="co">#&gt; Joining, by = "result_id"</span></span>
+<span><span class="co">#&gt; Joining, by = "result_id"</span></span></code></pre></div>
 <p>At this point, we have an unadjusted (<em>yi</em>, <em>vi</em>) and adjusted (<em>yi_adj</em>, <em>vi_adj</em>) estimates for each result.</p>
 <p>These estimates can then simply be passed to <code>metafor</code> for analysis</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">model_adj</span> <span class="op">&lt;-</span> <span class="fu">metafor</span><span class="fu">::</span><span class="fu"><a href="https://wviechtb.github.io/metafor/reference/rma.uni.html" class="external-link">rma.uni</a></span><span class="op">(</span>
-  yi <span class="op">=</span> <span class="va">yi_adj</span>,
-  vi <span class="op">=</span> <span class="va">vi_adj</span>,
-  data <span class="op">=</span> <span class="va">dat_final</span>,
-  slab <span class="op">=</span> <span class="va">dat_final</span><span class="op">$</span><span class="va">study</span>,
-<span class="op">)</span>
-<span class="co">#&gt; Warning: Studies with NAs omitted from model fitting.</span>
-
-<span class="co"># Pass model to forest plot function</span>
-<span class="fu">metafor</span><span class="fu">::</span><span class="fu"><a href="https://wviechtb.github.io/metafor/reference/forest.html" class="external-link">forest</a></span><span class="op">(</span>
-  <span class="va">model_adj</span>,
-  atransf <span class="op">=</span> <span class="va">exp</span>,
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">model_adj</span> <span class="op">&lt;-</span> <span class="fu">metafor</span><span class="fu">::</span><span class="fu"><a href="https://wviechtb.github.io/metafor/reference/rma.uni.html" class="external-link">rma.uni</a></span><span class="op">(</span></span>
+<span>  yi <span class="op">=</span> <span class="va">yi_adj</span>,</span>
+<span>  vi <span class="op">=</span> <span class="va">vi_adj</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">dat_final</span>,</span>
+<span>  slab <span class="op">=</span> <span class="va">dat_final</span><span class="op">$</span><span class="va">study</span>,</span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Studies with NAs omitted from model fitting.</span></span>
+<span></span>
+<span><span class="co"># Pass model to forest plot function</span></span>
+<span><span class="fu">metafor</span><span class="fu">::</span><span class="fu"><a href="https://wviechtb.github.io/metafor/reference/forest.html" class="external-link">forest</a></span><span class="op">(</span></span>
+<span>  <span class="va">model_adj</span>,</span>
+<span>  atransf <span class="op">=</span> <span class="va">exp</span>,</span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%" height="400"></p>
 </div>
 </div>
@@ -279,7 +279,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
