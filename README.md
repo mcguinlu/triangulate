@@ -7,7 +7,7 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/mcguinlu/triangulate/workflows/R-CMD-check/badge.svg)](https://github.com/mcguinlu/triangulate/actions)
+[![R-CMD-check](https://github.com/mcguinlu/triangulate/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mcguinlu/triangulate/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of triangulate is to create a generalised version of the
@@ -50,7 +50,6 @@ The approach described
 ``` r
 # Load libraries
 library(magrittr)
-#> Warning: package 'magrittr' was built under R version 3.6.3
 library(triangulate)
 
 # See column names of dat_bias
@@ -97,7 +96,10 @@ tri_dat_check(dat_bias)
 #> All expected columns are present in the dataset.
 ```
 
-For details
+For details on how to create these datasets, see the [Creating
+triangulation
+datasets](https://mcguinlu.github.io/triangulate/articles/Creating-triangulation-datasets.html)
+vignette (under construction).
 
 ### Absolute directions of bias
 
@@ -126,6 +128,7 @@ Once we load our data, helper functions will convert it to *long* format
 and convert to absolute directions of bias/indirectness.
 
 ``` r
+
 dat_bias <- triangulate::dat_bias %>%
 
 # Convert to long format
@@ -166,18 +169,19 @@ that we can use to
 
 ``` r
 dat_final <- tri_prep_data(dat_bias, dat_ind)
-#> Joining, by = "result_id"
-#> Joining, by = "result_id"
-#> Joining, by = "result_id"
-#> Joining, by = "result_id"
+#> Joining with `by = join_by(result_id)`
+#> Joining with `by = join_by(result_id)`
+#> Joining with `by = join_by(result_id)`
+#> Joining with `by = join_by(result_id)`
 ```
 
 At this point, we have an unadjusted (*yi*, *vi*) and adjusted
-(*yi\_adj*, *vi\_adj*) estimates for each result.
+(*yi_adj*, *vi_adj*) estimates for each result.
 
 These estimates can then simply be passed to `metafor` for analysis
 
 ``` r
+
 model_adj <- metafor::rma.uni(
   yi = yi_adj,
   vi = vi_adj,
