@@ -11,10 +11,8 @@ tri_absolute_direction <- function(dat){
     dplyr::mutate(
       # Additive
       d = dplyr::case_when(
-        .$t == "add" & d == "favours comparator" ~ "left",
-        .$t == "add" & d == "favours experimental" ~ "right",
-        .$t == "add" & d == "favors comparator" ~ "left",
-        .$t == "add" & d == "favors experimental" ~ "right",
+        .$t == "add" & d == "favours comparator" ~ "right",
+        .$t == "add" & d == "favours experimental" ~ "left",
         .$t == "prop" & d == "away from null" & yi < 0 ~ "left",
         .$t == "prop" & d == "towards null" & yi > 0 ~ "left",
         .$t == "prop" & d == "towards null" & yi < 0 ~ "right",
@@ -40,8 +38,8 @@ tri_absolute_direction_invert <- function(dat){
   dplyr::mutate(
     # Additive
     d = dplyr::case_when(
-      .$t == "add" & d == "left"  ~ "Favours comparator",
-      .$t == "add" & d == "right"  ~ "Favours experimental",
+      .$t == "add" & d == "right"  ~ "Favours comparator",
+      .$t == "add" & d == "left"  ~ "Favours experimental",
       .$t == "prop" & d == "left" & yi < 0 ~ "Away from null",
       .$t == "prop" & d == "left" & yi > 0 ~ "Towards null",
       .$t == "prop" & d == "right" & yi < 0 ~ "Towards null",
