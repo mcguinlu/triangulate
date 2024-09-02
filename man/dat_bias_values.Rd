@@ -3,25 +3,14 @@
 \docType{data}
 \name{dat_bias_values}
 \alias{dat_bias_values}
-\title{DATASET_TITLE}
+\title{Example priors for the bias adjustment}
 \format{
-A data frame with 3 rows and 6 variables:
-\describe{
-\item{\code{domain}}{character COLUMN_DESCRIPTION}
-\item{\code{j}}{character COLUMN_DESCRIPTION}
-\item{\code{bias_m_add}}{double COLUMN_DESCRIPTION}
-\item{\code{bias_v_add}}{double COLUMN_DESCRIPTION}
-\item{\code{bias_m_prop}}{double COLUMN_DESCRIPTION}
-\item{\code{bias_v_prop}}{double COLUMN_DESCRIPTION}
-}
+A data frame with 3 rows and 6 variables
 }
 \usage{
 dat_bias_values
 }
 \description{
-DATASET_DESCRIPTION
-}
-\details{
-DETAILS
+Example priors for the bias adjustment
 }
 \keyword{datasets}

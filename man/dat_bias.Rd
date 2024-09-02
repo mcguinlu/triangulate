@@ -3,45 +3,14 @@
 \docType{data}
 \name{dat_bias}
 \alias{dat_bias}
-\title{DATASET_TITLE}
+\title{Example risk of bias assessments}
 \format{
-A data frame with 20 rows and 26 variables:
-\describe{
-\item{\code{result_id}}{character COLUMN_DESCRIPTION}
-\item{\code{study}}{character COLUMN_DESCRIPTION}
-\item{\code{type}}{character COLUMN_DESCRIPTION}
-\item{\code{yi}}{double COLUMN_DESCRIPTION}
-\item{\code{vi}}{double COLUMN_DESCRIPTION}
-\item{\code{d1j}}{character COLUMN_DESCRIPTION}
-\item{\code{d2j}}{character COLUMN_DESCRIPTION}
-\item{\code{d3j}}{character COLUMN_DESCRIPTION}
-\item{\code{d4j}}{character COLUMN_DESCRIPTION}
-\item{\code{d5j}}{character COLUMN_DESCRIPTION}
-\item{\code{d6j}}{character COLUMN_DESCRIPTION}
-\item{\code{d7j}}{character COLUMN_DESCRIPTION}
-\item{\code{d1t}}{character COLUMN_DESCRIPTION}
-\item{\code{d2t}}{character COLUMN_DESCRIPTION}
-\item{\code{d3t}}{character COLUMN_DESCRIPTION}
-\item{\code{d4t}}{character COLUMN_DESCRIPTION}
-\item{\code{d5t}}{character COLUMN_DESCRIPTION}
-\item{\code{d6t}}{character COLUMN_DESCRIPTION}
-\item{\code{d7t}}{character COLUMN_DESCRIPTION}
-\item{\code{d1d}}{character COLUMN_DESCRIPTION}
-\item{\code{d2d}}{character COLUMN_DESCRIPTION}
-\item{\code{d3d}}{character COLUMN_DESCRIPTION}
-\item{\code{d4d}}{character COLUMN_DESCRIPTION}
-\item{\code{d5d}}{character COLUMN_DESCRIPTION}
-\item{\code{d6d}}{character COLUMN_DESCRIPTION}
-\item{\code{d7d}}{character COLUMN_DESCRIPTION}
-}
+A data frame with 20 rows and 26 variables
 }
 \usage{
 dat_bias
 }
 \description{
-DATASET_DESCRIPTION
-}
-\details{
-DETAILS
+Example risk of bias assessments
 }
 \keyword{datasets}
