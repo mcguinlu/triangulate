@@ -15,5 +15,3 @@
 #' @format A data frame with 3 rows and 6 variables
 
 "dat_ind_values"
-
-
