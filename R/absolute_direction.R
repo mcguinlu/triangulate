@@ -11,14 +11,12 @@ tri_absolute_direction <- function(dat){
     dplyr::mutate(
       # Additive
       d = dplyr::case_when(
-        .$t == "add" & d == "favours comparator" ~ "left",
-        .$t == "add" & d == "favours experimental" ~ "right",
-        .$t == "add" & d == "favors comparator" ~ "left",
-        .$t == "add" & d == "favors experimental" ~ "right",
-        .$t == "prop" & d == "away from null" & yi < 0 ~ "left",
-        .$t == "prop" & d == "towards null" & yi > 0 ~ "left",
-        .$t == "prop" & d == "towards null" & yi < 0 ~ "right",
-        .$t == "prop" & d == "away from null" & yi > 0 ~ "right",
+        .$t == "add" & d == "favours comparator" ~ "right",
+        .$t == "add" & d == "favours experimental" ~ "left",
+        .$t == "prop" & yi < 0 & d == "away from null" ~ "left",
+        .$t == "prop" & yi < 0 & d == "towards null"  ~ "right",
+        .$t == "prop" & yi > 0 & d == "away from null"  ~ "right",
+        .$t == "prop" & yi > 0 & d == "towards null"  ~ "left",
         .$d == "unpredictable" ~ "unpredictable",
         .$d == "none" ~ "none",
         T ~ ""
@@ -40,12 +38,12 @@ tri_absolute_direction_invert <- function(dat){
   dplyr::mutate(
     # Additive
     d = dplyr::case_when(
-      .$t == "add" & d == "left"  ~ "Favours comparator",
-      .$t == "add" & d == "right"  ~ "Favours experimental",
-      .$t == "prop" & d == "left" & yi < 0 ~ "Away from null",
-      .$t == "prop" & d == "left" & yi > 0 ~ "Towards null",
-      .$t == "prop" & d == "right" & yi < 0 ~ "Towards null",
-      .$t == "prop" & d == "right" & yi > 0 ~ "Away from null",
+      .$t == "add" & d == "right"  ~ "Favours comparator",
+      .$t == "add" & d == "left"  ~ "Favours experimental",
+      .$t == "prop" & yi < 0 & d == "left"   ~ "Away from null",
+      .$t == "prop" & yi < 0 & d == "right"  ~ "Towards null",
+      .$t == "prop" & yi > 0 & d == "right"  ~ "Away from null",
+      .$t == "prop" & yi > 0 & d == "left"   ~ "Towards null",
       .$d == "unpredictable" ~ "Unpredictable",
       .$d == "none" ~ "None",
       T ~ ""
@@ -70,22 +68,21 @@ tri_absolute_direction_quick <- function(dat, invert = FALSE){
 
   if (invert) {
 
-    dat %>%
+    data <- dat %>%
       tri_to_long() %>%
       tri_absolute_direction_invert() %>%
-      tri_to_wide() %>%
-      return()
+      tri_to_wide()
 
   } else {
 
-    dat %>%
+    data <- dat %>%
       tri_to_long() %>%
       tri_absolute_direction() %>%
-      tri_to_wide() %>%
-      return()
+      tri_to_wide()
 
   }
 
+  return(data)
 }
 
 

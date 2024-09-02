@@ -23,6 +23,18 @@ knitr::opts_chunk$set(
 The goal of triangulate is to create a generalised version of the bias-adjusted meta-analysis approach originally proposed by Turner et al. 
 
 
+
+There are a number of steps to this process:
+
+1. Define the causal question of interest
+2. Identify relevant evidence sources and standardise effect directions
+3. Specify an idealised version of each study
+4. Assess the extent and direction of bias/indirectness in each result
+5. Define modifying terms for bias and indirectness in each result
+6. Calculate bias-/indirectness-adjusted results and perform meta-analysis
+
+This package deals with steps 5 and 6.
+
 ## Installation
 
 ``` {r, eval = FALSE}
@@ -68,18 +80,6 @@ tri_dat_check(dat_bias)
 
 For details on how to create these datasets, see the [Creating triangulation datasets]( https://mcguinlu.github.io/triangulate/articles/Creating-triangulation-datasets.html) vignette (under construction).
 
-### Absolute directions of bias
-
-The best way to think about this is to consider an example, plotted on a standard forest plot. 
-
-For _additive_ bias/indirectness, the position of the point estimate does not effect the absolute direction of bias. That is, regardless of whether the point estimate is above or below the null, the absolute direction of bias/indirectness will be the same.
-
-In contrast, for _proportional bias/indirectness_, the absolute direction of bias depends on the position of the effect estimate. For example, if the effect estimate represents a protective effect (below the null), then bias towards the null would be adjusted for by moving the effect estimate proportionally to the right. In contrast, if the effect of the intervention is harmful (effect estimate above the null), bias towards the null would be adjusted for by moving the effect estimate proportionally to the left.
-
-Both scenarios are illustrated in the figure below:
-
-![](man/figures/exampleDirection.png)
-
 Once we load our data, helper functions will convert it to _long_ format and convert to absolute directions of bias/indirectness.
 
 ```{r}
@@ -95,18 +95,21 @@ tri_append_bias(triangulate::dat_bias_values)
 
 ```
 
+
+
+
+
 Then apply the same approach to the indirectness dataset:
 
 ```{r}
 dat_ind <- triangulate::dat_ind %>%
-
 # Convert to long format
 tri_to_long() %>%
-  
 tri_absolute_direction() %>%
-  
 tri_append_indirect(triangulate::dat_ind_values)
+
 ```
+
 
 
 ## Add prior distributions of bias/indirectness
@@ -128,19 +131,34 @@ At this point, we have an unadjusted (_yi_, _vi_) and adjusted (_yi_adj_, _vi_ad
 
 These estimates can then simply be passed to `metafor` for analysis
 
-``` {r, out.height = 600,out.height=400}
+``` {r, out.height = 1800,out.height=400}
 
-model_adj <- metafor::rma.uni(
+model <- metafor::rma(
+  yi = yi,
+  vi = vi,
+  data = dat_final,
+  slab = dat_final$study,
+  method = 'DL'
+)
+
+# Pass model to forest plot function
+metafor::forest(
+  model,
+  atransf = exp,
+)
+
+model_adj <- metafor::rma(
   yi = yi_adj,
   vi = vi_adj,
   data = dat_final,
   slab = dat_final$study,
+  method = 'DL'
 )
 
 # Pass model to forest plot function
 metafor::forest(
   model_adj,
-  atransf = exp,
+  atransf = exp
 )
 
 ```

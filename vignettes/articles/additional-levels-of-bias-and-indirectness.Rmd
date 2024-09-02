@@ -1,0 +1,62 @@
+---
+title: "Adding additional levels of bias and indirectness"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Adding additional levels of bias and indirectness}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include = F}
+library(triangulate)
+library(dplyr)
+```
+
+Say we wish to include 'Very high' or 'Critical' risk of bias as an option in our assessments. In this example, Domain 1 of Study 1 has a "Critical" risk of bias assessment
+
+```{r}
+dat_bias_with_critical <- triangulate::dat_bias
+dat_bias_with_critical[1,6] <- 'Critical'
+
+dat_bias_with_critical[1,1:6]
+```
+
+This requires us to add in another prior ('critical') to the library contained in `dat_bias_values`:
+
+``` {r}
+custom_bias_priors <- triangulate::dat_bias_values %>% 
+  add_row(domain = 'all',
+          j = 'critical',
+          bias_m_add = 0.2,
+          bias_v_add = 0.12,
+          bias_m_prop = 0.08,
+          bias_v_prop = 0.04)
+
+custom_bias_priors
+```
+
+It is then just a case of passing our custom prior dataset to the prep functions:
+
+```{r}
+
+dat_bias_with_critical_prepped <- dat_bias_with_critical %>%
+  
+  tri_to_long() %>%
+  
+  tri_absolute_direction() %>%
+  
+  tri_append_bias(custom_bias_priors)
+
+dat_bias_with_critical_prepped[1:7,c(2,6:13)]
+```
+
+We can see now that the first domain (D1) of Study 1 has been defined as Critical, and the adjustment values we added to our `custom_bias_priors` dataset have been correctly assigned to it.
+
+The same approach is possible if you wish to change/supplement the levels used in the indirectness adjustment.

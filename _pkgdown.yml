@@ -1,1 +1,4 @@
-url: https://mcguinlu.github.io/triangulate
+url: https://mcguinlu.github.io/triangulate/
+template:
+  bootstrap: 5
+
