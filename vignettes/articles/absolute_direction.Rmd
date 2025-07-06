@@ -55,15 +55,17 @@ To illustrate this and ensure that our code is working correctly, lets consider 
 ```{r}
 # Create the example dataset
 example_data <- tibble(
+  result_id = paste0("S", 1:6),  # <-- Add this line
   study = paste("Study", 1:6),
-  yi = c(-.2,.25, -.1,-.3,.1,.3),
-  vi = round(runif(6, -.05,.05),3), 
+  yi = c(-.2, .25, -.1, -.3, .1, .3),
+  vi = round(runif(6, 0.01, 0.05), 3),  # use positive variances
   d1j = rep("moderate", 6),
-  d1t = c(rep("add",2),rep("prop",4)),
+  d1t = c(rep("add", 2), rep("prop", 4)),
   d1d = c("Favours comparator", "Favours experimental",
-        "Away from null", "Towards null",
-        "Away from null", "Towards null")
-  )
+          "Away from null", "Towards null",
+          "Away from null", "Towards null")
+)
+
 
 # Complete the preparation steps of triangulate
 example_data_prepped <- example_data %>%
