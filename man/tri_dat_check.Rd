@@ -2,13 +2,19 @@
 % Please edit documentation in R/dat_check.R
 \name{tri_dat_check}
 \alias{tri_dat_check}
-\title{Title}
+\title{Check that required columns are present}
 \usage{
-tri_dat_check(dat)
+tri_dat_check(dat, mode = c("minimal", "full"))
 }
 \arguments{
-\item{dat}{Data}
+\item{dat}{A data frame (long or wide format)}
+
+\item{mode}{Check mode: either "minimal" or "full"}
+}
+\value{
+Throws an error if required columns are missing. Otherwise returns TRUE (invisibly).
 }
 \description{
-Title
+Validates whether key variables are present in the dataset.
+Can toggle between a basic ("minimal") check or a "full" check including columns needed for bias adjustment.
 }

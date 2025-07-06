@@ -4,7 +4,7 @@
 #' Can toggle between a basic ("minimal") check or a "full" check including columns needed for bias adjustment.
 #'
 #' @param dat A data frame (long or wide format)
-#' @param mode "minimal" (default) or "full"
+#' @param mode Check mode: either "minimal" or "full"
 #'
 #' @return Throws an error if required columns are missing. Otherwise returns TRUE (invisibly).
 #' @export
@@ -24,7 +24,7 @@ tri_dat_check <- function(dat, mode = c("minimal", "full")) {
          paste(missing_cols, collapse = ", "))
   }
 
-  message("✔ tri_dat_check(): All expected columns are present (mode = '", mode, "').")
+  message("tri_dat_check(): All expected columns are present (mode = '", mode, "').")
   invisible(TRUE)
 }
 

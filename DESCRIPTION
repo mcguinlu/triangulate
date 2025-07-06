@@ -14,7 +14,7 @@ VignetteBuilder:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 URL: https://mcguinlu.github.io/triangulate,
     https://github.com/mcguinlu/triangulate
 BugReports: https://github.com/mcguinlu/triangulate/issues

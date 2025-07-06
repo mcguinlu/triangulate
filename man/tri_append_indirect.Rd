@@ -2,18 +2,20 @@
 % Please edit documentation in R/append_values.R
 \name{tri_append_indirect}
 \alias{tri_append_indirect}
-\title{Title}
+\title{Append indirectness priors to dataset}
 \usage{
-tri_append_indirect(dat, values, common = T)
+tri_append_indirect(dat, values, common = TRUE)
 }
 \arguments{
-\item{dat}{Indirectness dataframe in long format}
+\item{dat}{A long-format indirectness dataset}
 
-\item{values}{Distributions of bias for different risk of indirectness levels}
+\item{values}{A dataframe of indirectness priors (e.g., dat_ind_values)}
 
-\item{common}{Should a single set of distributions be used across all domains
-(default is TRUE)?}
+\item{common}{Should a single set of distributions be used across all domains (default is TRUE)?}
+}
+\value{
+Dataset with indirectness prior values appended
 }
 \description{
-Title
+Similar to tri_append_bias(), but operates on indirectness judgments and priors
 }

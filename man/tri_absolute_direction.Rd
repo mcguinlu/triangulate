@@ -2,7 +2,7 @@
 % Please edit documentation in R/absolute_direction.R
 \name{tri_absolute_direction}
 \alias{tri_absolute_direction}
-\title{Title}
+\title{Convert to absolute direction of bias or indirectness}
 \usage{
 tri_absolute_direction(dat)
 }
@@ -10,5 +10,6 @@ tri_absolute_direction(dat)
 \item{dat}{Data in long format}
 }
 \description{
-Title
+Converts qualitative bias direction labels (e.g. "Favours comparator")
+into absolute directions ("left" or "right") based on effect size and bias type.
 }

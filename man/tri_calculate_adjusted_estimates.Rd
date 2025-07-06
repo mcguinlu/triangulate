@@ -2,13 +2,17 @@
 % Please edit documentation in R/analysis.R
 \name{tri_calculate_adjusted_estimates}
 \alias{tri_calculate_adjusted_estimates}
-\title{Title}
+\title{Calculate adjusted effect estimates and variances}
 \usage{
 tri_calculate_adjusted_estimates(dat)
 }
 \arguments{
-\item{dat}{Data in long format}
+\item{dat}{Data in long format with bias and indirectness columns}
+}
+\value{
+Data with \code{yi_adj} and \code{vi_adj} columns added
 }
 \description{
-Title
+Applies bias and indirectness corrections to effect estimates \code{yi} and variances \code{vi}.
+Requires additive and proportional bias/indirectness inputs.
 }

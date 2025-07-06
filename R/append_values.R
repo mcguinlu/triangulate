@@ -5,7 +5,7 @@
 #'
 #' @param dat A bias dataset in long format (must include j, d, t, domain, result_id)
 #' @param values A data frame of prior distributions (e.g., from dat_bias_values)
-#' @param common Should priors apply across all domains (TRUE), or vary by domain?
+#' @param common Should a single set of distributions be used across all domains (default is TRUE)?
 #'
 #' @return Dataset with numeric bias prior values appended
 #' @export
@@ -75,7 +75,7 @@ tri_append_bias <- function(dat, values, common = TRUE) {
 #'
 #' @param dat A long-format indirectness dataset
 #' @param values A dataframe of indirectness priors (e.g., dat_ind_values)
-#' @param common Should priors apply across all domains (TRUE), or vary by domain?
+#' @param common Should a single set of distributions be used across all domains (default is TRUE)?
 #'
 #' @return Dataset with indirectness prior values appended
 #' @export

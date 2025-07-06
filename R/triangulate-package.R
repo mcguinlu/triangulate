@@ -36,5 +36,8 @@ globalVariables(c(
   "vi",
   "yi",
   "yi_adj",
-  "."
+  ".",
+  "any_of",
+  "scale_factor",
+  "vi_adj"
 ))

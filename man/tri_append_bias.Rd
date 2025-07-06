@@ -2,18 +2,21 @@
 % Please edit documentation in R/append_values.R
 \name{tri_append_bias}
 \alias{tri_append_bias}
-\title{Title}
+\title{Append bias priors to bias dataset}
 \usage{
-tri_append_bias(dat, values, common = T)
+tri_append_bias(dat, values, common = TRUE)
 }
 \arguments{
-\item{dat}{Bias dataframe in long format}
+\item{dat}{A bias dataset in long format (must include j, d, t, domain, result_id)}
 
-\item{values}{Distributions of bias for different risk of bias levels}
+\item{values}{A data frame of prior distributions (e.g., from dat_bias_values)}
 
-\item{common}{Should a single set of distributions be used across all domains
-(default is TRUE)?}
+\item{common}{Should a single set of distributions be used across all domains (default is TRUE)?}
+}
+\value{
+Dataset with numeric bias prior values appended
 }
 \description{
-Title
+Joins the appropriate prior parameters to a long-format bias dataset, based on
+the risk-of-bias judgment (j), direction (d), and type (t).
 }
