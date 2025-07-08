@@ -11,7 +11,7 @@ tri_append_bias(dat, values, common = TRUE)
 
 \item{values}{A data frame of prior distributions (e.g., from dat_bias_values)}
 
-\item{common}{Should a single set of distributions be used across all domains (default is TRUE)?}
+\item{common}{Should a single set of prior distributions be used across all domains (default is TRUE)? Set to FALSE to allow domain-specific priors.}
 }
 \value{
 Dataset with numeric bias prior values appended
