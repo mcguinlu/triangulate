@@ -29,7 +29,12 @@ Imports:
     tidyr,
     stringr,
     magrittr,
-    janitor
+    janitor,
+    ggplot2,
+    metadat,
+    metafor,
+    purrr,
+    scales
 Depends: 
     R (>= 3.5)
 Remotes: 

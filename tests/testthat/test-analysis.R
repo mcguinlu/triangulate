@@ -11,6 +11,9 @@ test_that("tri_prep_data() and tri_calculate_adjusted_estimates() run correctly"
 
   result <- tri_prep_data(dat_bias_prep, dat_ind_prep)
 
+  expect_true("type" %in% colnames(result))
+
+
   expect_true("yi_adj" %in% colnames(result))
   expect_true("vi_adj" %in% colnames(result))
 })

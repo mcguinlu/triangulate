@@ -1,37 +1,43 @@
-#' Calculate adjusted effect estimates and variances
+#' Calculate Bias-Adjusted Estimates
 #'
-#' Applies bias and indirectness corrections to effect estimates `yi` and variances `vi`.
-#' Requires additive and proportional bias/indirectness inputs.
+#' Computes adjusted effect estimates (`yi_adj`) and variances (`vi_adj`)
+#' incorporating additive and proportional bias adjustments.
 #'
-#' @param dat Data in long format with bias and indirectness columns
-#'
-#' @return Data with `yi_adj` and `vi_adj` columns added
-#'
+#' @param dat A dataset prepared using `tri_prep_data()`, containing bias parameters
+#' @return A tibble with added `yi_adj` and `vi_adj` columns
 #' @export
 tri_calculate_adjusted_estimates <- function(dat) {
+  dat <- dat %>%
+    dplyr::mutate(
+      # Compute scale factor
+      scale_factor = propimn * propemn
+    )
+
+  # Warn if any scale factors are exactly 0
+  if (any(dat$scale_factor == 0, na.rm = TRUE)) {
+    warning("Some values of propimn * propemn equal 0. Check for zero proportional biases - is this correct?")
+  }
 
   dat <- dat %>%
     dplyr::mutate(
-      # Avoid divide-by-zero
-      scale_factor = propimn * propemn,
-      scale_factor = dplyr::if_else(scale_factor == 0, NA_real_, scale_factor),
-
+      # Calculate adjusted effect
       yi_adj = (yi - addimn - propimn * addemn) / scale_factor,
 
+      # Calculate adjusted variance
       vi_adj = (
         ((propimn^2 + propivar) * (propevar * yi_adj^2 + addevar)) +
           (propivar * (propemn * yi_adj + addemn)^2) +
           addivar + vi
-      ) / (scale_factor^2)
-    ) %>%
-    # Replace Inf or NaN with NA and warn
-    dplyr::mutate(
+      ) / (scale_factor^2),
+
+      # Replace Inf or NaN with NA (defensive)
       yi_adj = dplyr::if_else(is.finite(yi_adj), yi_adj, NA_real_),
       vi_adj = dplyr::if_else(is.finite(vi_adj), vi_adj, NA_real_)
     )
 
   return(dat)
 }
+
 
 #' Prepare bias and indirectness data for adjustment
 #'
@@ -83,7 +89,7 @@ tri_prep_data <- function(dat_bias, dat_ind) {
     )
 
   dat_final <- dat_bias %>%
-    dplyr::distinct(result_id, study, yi, vi) %>%
+    dplyr::distinct(result_id, study, type, yi, vi) %>%
     dplyr::left_join(i_add, by = "result_id") %>%
     dplyr::left_join(i_prop, by = "result_id") %>%
     dplyr::left_join(e_add, by = "result_id") %>%

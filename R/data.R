@@ -26,12 +26,4 @@
 #' @title Beta-carotene CHD data (with RoB)
 #' Cleaned dataset of log risk ratios for CHD, merged with RoB annotations.
 
-#' @format A data frame with 13 rows and ~25 variables
-#' @source Shapland et al. (2024)
-"dat_CHD_bias"
 
-#' @title Beta-carotene CVD data (with RoB)
-#' Cleaned dataset of log risk ratios for CVD, merged with RoB annotations.
-#' @format A data frame with 17 rows and ~25 variables
-#' @source Shapland et al. (2024)
-"dat_CVD_bias"
