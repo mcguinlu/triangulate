@@ -123,6 +123,8 @@ rob_file <- system.file("extdata", "beta_carotene_data.xlsx", package = "triangu
 RoB <- readxl::read_excel(rob_file, sheet = "main_data")
 colnames(RoB)[2] <- "Author"
 
+Metadta_RoB_CHD<-merge(Metadta_all_CHD, RoB, by="Author")
+
 # format to robviz
 colnames(Metadta_RoB_CHD)[which(colnames(Metadta_RoB_CHD)=="id")]<-"result_id"
 colnames(Metadta_RoB_CHD)[which(colnames(Metadta_RoB_CHD)=="Study")]<-"type"
