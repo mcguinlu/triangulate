@@ -34,7 +34,9 @@ Imports:
     metadat,
     metafor,
     purrr,
-    scales
+    scales,
+    readxl,
+    tibble
 Depends: 
     R (>= 3.5)
 Remotes: 
