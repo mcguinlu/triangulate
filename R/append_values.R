@@ -9,7 +9,12 @@
 
 #' @return Dataset with numeric bias prior values appended
 #' @export
-tri_append_bias <- function(dat, values, common = TRUE) {
+tri_append_bias <- function(dat, values = NULL, common = TRUE) {
+  # Substitute default bias values if none provided
+  if (is.null(values)) {
+    warning("Using default bias priors from triangulate::dat_bias_values. Consider specifying custom priors if you have study-specific information.")
+    values <- triangulate::dat_bias_values
+  }
 
   # Validate direction values
   allowed_d <- c("left", "right", "unpredictable", "none")

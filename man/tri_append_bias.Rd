@@ -4,7 +4,7 @@
 \alias{tri_append_bias}
 \title{Append bias priors to bias dataset}
 \usage{
-tri_append_bias(dat, values, common = TRUE)
+tri_append_bias(dat, values = NULL, common = TRUE)
 }
 \arguments{
 \item{dat}{A bias dataset in long format (must include j, d, t, domain, result_id)}

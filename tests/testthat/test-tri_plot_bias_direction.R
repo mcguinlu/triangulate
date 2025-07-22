@@ -3,7 +3,7 @@ test_that("tri_plot_bias_direction runs without error on CHD example", {
   skip_if_not_installed("metafor")
 
   # Load example data (produced from prep pipeline)
-  data_path <- system.file("example/CHD/data/RoB_betaCarotene_CHD_v3.Rdata", package = "triangulate")
+  data_path <- system.file("extdata/RoB_betaCarotene_CHD_v3.Rdata", package = "triangulate")
   load(data_path)  # loads `dat_CHDbias`
 
 

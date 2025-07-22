@@ -286,7 +286,7 @@ rob_direction <-
         if (length(res[[i]]$slab) == 1) {
           next
         }
-
+        #graphics::par(font = 1)
         metafor::addpoly(
           res[[i]],
           #fonts = 1,
@@ -413,10 +413,10 @@ rob_direction <-
         if (length(res_adj[[i]]$slab) == 1) {
           next
         }
-
+        #graphics::par(font = 1)
         metafor::addpoly(
           res_adj[[i]],
-          fonts = 1,
+          #fonts = 1,
           row = dat_rob_vec$stats[i],
           cex = 1.2,
           textpos=textpos,
