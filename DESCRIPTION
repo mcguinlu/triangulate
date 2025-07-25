@@ -2,11 +2,21 @@ Package: triangulate
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.1
 Authors@R: 
-    person(given = "Luke",
-           family = "McGuinness",
-           role = c("aut", "cre"),
-           email = "luke.mcguinness@bristol.ac.uk",
-           comment = c(ORCID = "0000-0001-8730-9761"))
+    c(
+      person(given = "Luke",
+             family = "McGuinness",
+             role = c("aut", "cre"),
+             email = "luke.mcguinness@bristol.ac.uk",
+             comment = c(ORCID = "0000-0001-8730-9761")),
+      person(given = "Tassia",
+             family = "Jones",
+             role = "aut",
+             email = "nv22679@bristol.ac.uk"),
+      person(given = "Chin Yang",
+             family = "Shapland",
+             role = "aut",
+             email = "chinyang.shapland@bristol.ac.uk")
+    )
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 VignetteBuilder: 
@@ -36,7 +46,8 @@ Imports:
     purrr,
     scales,
     readxl,
-    tibble
+    tibble,
+    shiny
 Depends: 
     R (>= 3.5)
 Remotes: 
