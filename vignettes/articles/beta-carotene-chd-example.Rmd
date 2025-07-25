@@ -28,7 +28,7 @@ library(triangulate)
 
 ## Introduction
 
-This tutorial demonstrates how to use the `triangulate` package to perform a bias-adjusted meta-analysis of the association between beta-carotene and coronary heart disease (CHD), using estimates from diverse study designs (RCTs, observational, and MR).
+This tutorial demonstrates how to use the `triangulate` package to perform a bias-adjusted meta-analysis of the association between beta-carotene and coronary heart disease (CHD), using estimates from diverse study designs (randomized controlled trial (RCT), conventional observational study (Obs) and Mendelian randomisation study(MR)).
 
 ## 1. Create CHD Dataset
 
