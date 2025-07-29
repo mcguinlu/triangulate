@@ -16,7 +16,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(triangulate)
+devtools::load_all()
+#library(triangulate)
 ```
 
 ## Introduction

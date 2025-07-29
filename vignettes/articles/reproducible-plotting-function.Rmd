@@ -1,0 +1,161 @@
+---
+title: "Using tri_plot_bias_direction01 to Visualise Risk of Bias Direction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tri_plot_bias_direction01 demonstration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+# Load your package (adjust the name if needed)
+library(triangulate)
+
+```
+
+This function was designed to be more adaptable to datasets with a variety of number of studies. it is based on the tri_plot_bias_direction() function.
+
+
+## Example 1: Basic Dataset
+
+We start with a small illustrative dataset:
+
+```{r small-dataset}
+dat_example <- data.frame(
+  study = c("Study A", "Study B", "Study C", "Study D", "Study E", "Study F", "Study G", "Study H", "Study I"),
+  type = c("RCT", "RCT", "RCT", "Obs", "Obs", "Obs", "Obs", "Obs", "Obs"),
+  result_id = 1:9,
+  yi = c(0.1, 0.05, -0.02, 0.15, 0.08, 0.03, -0.1, -0.05, 0.0),
+  vi = c(0.01, 0.02, 0.015, 0.03, 0.025, 0.02, 0.018, 0.022, 0.02),
+  yi_adj = c(0.12, 0.06, -0.01, 0.14, 0.09, 0.04, -0.09, -0.04, 0.01),
+  vi_adj = c(0.011, 0.021, 0.016, 0.031, 0.026, 0.021, 0.019, 0.023, 0.021),
+  overall = c("low", "moderate", "high", "high", "moderate", "low", "critical", "low", "moderate"),
+
+  # Full-text domain judgments
+  d1j = c("low", "moderate", "high", "high", "moderate", "low", "critical", "low", "moderate"),
+  d2j = c("low", "moderate", "high", "moderate", "high", "low", "critical", "moderate", "low"),
+  d3j = c("low", "low", "low", "moderate", "moderate", "moderate", "high", "critical", "low"),
+  d4j = c("moderate", "moderate", "moderate", "high", "high", "low", "low", "low", "low"),
+  d5j = c("low", "low", "moderate", "moderate", "high", "high", "critical", "low", "moderate"),
+  d6j = c("low", "moderate", "moderate", "high", "high", "low", "low", "moderate", "moderate"),
+  d7j = c("low", "moderate", "moderate", "high", "high", "low", "critical", "moderate", "low"),
+
+  # Bias direction types (e.g. additive)
+  d1t = d2t <- d3t <- d4t <- d5t <- d6t <- d7t <- rep("a", 9),
+
+  # Bias direction codes
+  d1d = c("la", "ra", "lp", "rp", "up", "ua", "rp", "la", "up"),
+  d2d = c("lp", "ra", "rp", "up", "ua", "la", "rp", "lp", "la"),
+  d3d = c("ua", "ua", "ua", "ua", "ua", "ua", "rp", "rp", "ua"),
+  d4d = c("la", "ra", "rp", "rp", "rp", "ua", "ua", "ua", "ua"),
+  d5d = c("lp", "lp", "rp", "rp", "rp", "rp", "rp", "ua", "ua"),
+  d6d = c("ua", "ua", "ua", "ua", "ua", "ua", "ua", "ua", "ua"),
+  d7d = c("ua", "ua", "ua", "ua", "ua", "ua", "ua", "ua", "ua")
+)
+
+png("example1_plot.png", width = 1140, height = 750)
+tri_plot_bias_direction01(dat_example)
+dev.off()
+
+```
+
+## Example 2: Larger Mixed Dataset
+
+Next, we simulate a larger and more heterogeneous dataset with RCTs, observational studies, and MR studies.
+
+```{r large-dataset}
+set.seed(123)
+
+dat_mixed_example <- data.frame(
+  study = paste("Study", LETTERS[1:15]),
+  type = c(rep("RCT", 5), rep("Obs", 6), rep("MR", 4)),
+  result_id = 1:15,
+  yi = round(rnorm(15, 0.05, 0.1), 2),
+  vi = round(runif(15, 0.01, 0.03), 3),
+  yi_adj = round(rnorm(15, 0.06, 0.1), 2),
+  vi_adj = round(runif(15, 0.012, 0.035), 3),
+  overall = sample(c("low", "moderate", "high", "critical"), 15, replace = TRUE),
+
+  d1j = sample(c("low", "moderate", "high", "critical"), 15, replace = TRUE),
+  d2j = sample(c("low", "moderate", "high", "critical"), 15, replace = TRUE),
+  d3j = sample(c("low", "moderate", "high", "critical"), 15, replace = TRUE),
+  d4j = sample(c("low", "moderate", "high", "critical"), 15, replace = TRUE),
+  d5j = sample(c("low", "moderate", "high", "critical"), 15, replace = TRUE),
+  d6j = sample(c("low", "moderate", "high", "critical"), 15, replace = TRUE),
+  d7j = sample(c("low", "moderate", "high", "critical"), 15, replace = TRUE),
+
+  d1t = d2t <- d3t <- d4t <- d5t <- d6t <- d7t <- rep("a", 15),
+
+  d1d = sample(c("la", "ra", "lp", "rp", "ua"), 15, replace = TRUE),
+  d2d = sample(c("la", "ra", "lp", "rp", "ua"), 15, replace = TRUE),
+  d3d = sample(c("la", "ra", "lp", "rp", "ua"), 15, replace = TRUE),
+  d4d = sample(c("la", "ra", "lp", "rp", "ua"), 15, replace = TRUE),
+  d5d = sample(c("la", "ra", "lp", "rp", "ua"), 15, replace = TRUE),
+  d6d = sample(c("la", "ra", "lp", "rp", "ua"), 15, replace = TRUE),
+  d7d = sample(c("la", "ra", "lp", "rp", "ua"), 15, replace = TRUE)
+)
+
+png("example2_plot.png", width = 1140, height = 750)
+tri_plot_bias_direction01(dat_mixed_example)
+dev.off()
+
+
+```
+
+```{r 20-studies}
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Create dataset with 20 studies
+dat_20 <- data.frame(
+  study = paste("Study", LETTERS[1:20]),
+  type = sample(c("RCT", "Obs", "MR"), 20, replace = TRUE),
+  result_id = 1:20,
+  
+  # Simulated observed effect sizes and variances
+  yi = round(rnorm(20, 0.05, 0.1), 2),
+  vi = round(runif(20, 0.01, 0.03), 3),
+  
+  # Adjusted values
+  yi_adj = round(rnorm(20, 0.06, 0.1), 2),
+  vi_adj = round(runif(20, 0.012, 0.035), 3),
+
+  # Overall RoB judgement
+  overall = sample(c("low", "moderate", "high", "critical"), 20, replace = TRUE),
+  
+  # Domain-level judgments
+  d1j = sample(c("low", "moderate", "high", "critical"), 20, replace = TRUE),
+  d2j = sample(c("low", "moderate", "high", "critical"), 20, replace = TRUE),
+  d3j = sample(c("low", "moderate", "high", "critical"), 20, replace = TRUE),
+  d4j = sample(c("low", "moderate", "high", "critical"), 20, replace = TRUE),
+  d5j = sample(c("low", "moderate", "high", "critical"), 20, replace = TRUE),
+  d6j = sample(c("low", "moderate", "high", "critical"), 20, replace = TRUE),
+  d7j = sample(c("low", "moderate", "high", "critical"), 20, replace = TRUE),
+  
+  # Bias type (e.g., all additive)
+  d1t = d2t <- d3t <- d4t <- d5t <- d6t <- d7t <- rep("a", 20),
+  
+  # Direction of bias
+  d1d = sample(c("la", "ra", "lp", "rp", "ua"), 20, replace = TRUE),
+  d2d = sample(c("la", "ra", "lp", "rp", "ua"), 20, replace = TRUE),
+  d3d = sample(c("la", "ra", "lp", "rp", "ua"), 20, replace = TRUE),
+  d4d = sample(c("la", "ra", "lp", "rp", "ua"), 20, replace = TRUE),
+  d5d = sample(c("la", "ra", "lp", "rp", "ua"), 20, replace = TRUE),
+  d6d = sample(c("la", "ra", "lp", "rp", "ua"), 20, replace = TRUE),
+  d7d = sample(c("la", "ra", "lp", "rp", "ua"), 20, replace = TRUE)
+)
+
+# Save the plot as a PNG
+png("tri_plot_20_studies.png", width = 900, height = 700)
+tri_plot_bias_direction01(dat_20)
+dev.off()
+
+```
+
+

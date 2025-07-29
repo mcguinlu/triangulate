@@ -25,95 +25,26 @@ library(magrittr)
 library(metafor)
 library(triangulate)
 ```
+> This example is based on data and analysis from [Shapland et al., 2024](https://www.medrxiv.org/content/10.1101/2024.09.20.24314046v1).
 
 ## Introduction
 
-This tutorial demonstrates how to use the `triangulate` package to perform a bias-adjusted meta-analysis of the association between beta-carotene and coronary heart disease (CHD), using estimates from diverse study designs (randomized controlled trial (RCT), conventional observational study (Obs) and Mendelian randomisation study(MR)).
+This tutorial demonstrates how to use the `triangulate` package to perform a bias-adjusted meta-analysis of the association between beta-carotene and coronary heart disease (CHD), using estimates from diverse study designs (randomised controlled trial (RCT), conventional observational study (Obs) and Mendelian randomisation study(MR)).
 
-## 1. Create CHD Dataset
+## 1. Load CHD Dataset
 
-We define estimates from different study designs and harmonise them to a common dose-response scale.
+The Metadta_all_CHD dataset compiles results from observational, biomarker, randomised controlled trial (RCT), and Mendelian randomisation (MR) studies examining the association between beta-carotene exposure and coronary heart disease (CHD). It includes standardised effect estimates (log risk ratios) and standard errors, allowing for dose-response meta-analysis across different study designs.
 
 ```{r create-data}
-# Diet-based observational studies
-CHD_diet <- data.frame(
-  Author = c("Osganian", "Klipstein-Grobusch", "Todd", "Pandey"),
-  RR = c(0.83, 0.22, 0.87, 0.84),
-  RR_LC = c(0.72, 0.07, 0.68, 0.66),
-  RR_UC = c(0.96, 0.68, 1.12, 1.09),
-  Study = rep("Obs", 4),
-  Design = rep("Diet", 4),
-  Dose = rep(1, 4)
-)
 
-# Circulatory biomarker studies (convert to per 5000 ug/d)
-sd_circ <- sqrt(78) * (((0.48 - 0.46) / 0.01863) / 3.92)
-sd_diet <- sqrt(67) * ((4465.5 - 3383.8) / 3.92)
-conv_factor <- 0.27 * (sd_diet / sd_circ)
+# Data loaded from:
+# “Res_MetaAll_beta_carotene_AllCHD_v2.Rdata” saved in the
+# R/CHD/01_Prep_Data.R directory of the GitHub repository:
+# https://github.com/CYShapland/BetaCarotene_CVD
 
-CHD_circ <- data.frame(
-  Author = c("Karppi", "Koh", "Hak"),
-  RR = c(0.64, 0.95, 0.82),
-  RR_LC = c(0.45, 0.66, 0.63),
-  RR_UC = c(0.93, 1.37, 1.07),
-  Study = rep("Obs", 3),
-  Design = rep("Circ", 3),
-  Dose = rep(25 * conv_factor, 3)
-) %>%
-  mutate(
-    RR = exp((5000 / Dose) * log(RR)),
-    RR_LC = exp((5000 / Dose) * log(RR_LC)),
-    RR_UC = exp((5000 / Dose) * log(RR_UC)),
-    Dose = Dose^0
-  )
 
-# RCT studies
-CHD_rct <- data.frame(
-  Author = c("Tornwall", "Cook", "Hennekens"),
-  RR = c(1.03, 1.00, 0.96),
-  RR_LC = c(0.92, 0.89, 0.85),
-  RR_UC = c(1.16, 1.13, 1.08),
-  Study = rep("RCT", 3),
-  Design = rep("RCT", 3),
-  Dose = c(20000, 25000, 25000)
-) %>%
-  mutate(
-    RR = exp(log(RR) / (Dose / 5000)),
-    RR_LC = exp(log(RR_LC) / (Dose / 5000)),
-    RR_UC = exp(log(RR_UC) / (Dose / 5000)),
-    Dose = Dose^0
-  )
-
-# Mendelian Randomisation (MR) studies
-sd_circ <- sqrt(78) * ((((0.48 - 0.46) * 10) / 0.01863) / 3.92)
-sd_diet <- sqrt(67) * ((4465.5 - 3383.8) / 3.92)
-conv_factor <- 0.27 * (sd_diet / sd_circ)
-
-CHD_MR <- data.frame(
-  Author = c("CARDIoGRAMplusC4D", "UKBB", "FinnGen"),
-  RR = c(exp((5000 / conv_factor) * (log(1.054) / 301)),
-         exp((5000 / conv_factor) * (log(1.015) / 301)),
-         exp((5000 / conv_factor) * (log(1.027) / 301))),
-  RR_LC = c(exp((5000 / conv_factor) * (log(0.948) / 301)),
-            exp((5000 / conv_factor) * (log(0.925) / 301)),
-            exp((5000 / conv_factor) * (log(0.840) / 301))),
-  RR_UC = c(exp((5000 / conv_factor) * (log(1.173) / 301)),
-            exp((5000 / conv_factor) * (log(1.114) / 301)),
-            exp((5000 / conv_factor) * (log(1.255) / 301))),
-  Study = rep("MR", 3),
-  Design = rep("Circ", 3),
-  Dose = rep(1, 3)
-)
-
-# Combine all
-Metadta_all_CHD <- bind_rows(CHD_diet, CHD_circ, CHD_rct, CHD_MR) %>%
-  mutate(
-    logRR = log(RR),
-    se_logRR = (log(RR_UC) - log(RR_LC)) / 3.92,
-    id = 1:n(),
-    Outcome = "CHD"
-  ) %>%
-  select(Author, Study, id, Dose, logRR, se_logRR, Design, Outcome)
+load(system.file("extdata", "Res_MetaAll_beta_carotene_AllCHD_v2.Rdata", package = "triangulate"))
+     
 ```
 
 ## 2. Merge with RoB Assessments
@@ -154,7 +85,11 @@ dat_CHDbias_rob <- dat_CHDbias %>%
   tri_to_wide()
 ```
 
-## 4. Add Indirectness (set to missing)
+## 4. Add Indirectness & Adjust Effect Estimate for It
+
+In this example, indirectness is assumed to be missing (set to "None") for all domains. However, in real analyses, indirectness judgments can and should be specified if relevant.
+
+Also, the tri_append_indirect() function not only appends indirectness priors but also adjusts the effect estimate accordingly — making this a key part of the bias-adjustment pipeline.
 
 ```{r indirect}
 dat_CHDind <- dat_CHDbias %>% select(result_id, study, type, yi, vi)
@@ -174,6 +109,11 @@ dat_CHDind <- dat_CHDind %>%
 
 ## 5. Apply Bias Priors & Estimate Adjusted Effects
 
+### 5.1 Define Custom Priors
+
+The triangulate::dat_bias_values object contains the default priors for each domain and judgment combination.
+This step allows you to customize the priors (e.g. changing the additive mean for a particular domain), building on the default set.
+
 ```{r bias-correction}
 custom_bias_priors <- triangulate::dat_bias_values %>%
   add_row(
@@ -182,23 +122,31 @@ custom_bias_priors <- triangulate::dat_bias_values %>%
     bias_m_prop = 0.12, bias_v_prop = 0.064
   )
 
+```
+
+### 5.2 Append priors and prepare data, and estimate adjusted effects
+
+```{r append-priors}
+
 dat_CHDbias_prep <- dat_CHDbias %>%
   tri_to_long() %>%
   tri_absolute_direction() %>%
   tri_append_bias(custom_bias_priors)
 
 datCHD_final <- tri_prep_data(dat_CHDbias_prep, dat_CHDind)
+
+
 ```
 
 ## 6. Generate Bias-Adjusted Plot
 
-```{r plot, fig.width=10, fig.height=8}
+```{r plot, fig.width=12, fig.height=8}
 
-### Plot adjusted with robviz
-dat_CHDbias_final <- dat_CHDbias_rob %>%
-  right_join(datCHD_final[c("result_id", "yi_adj", "vi_adj")], by = "result_id")
+dat_CHDbias_final<-dat_CHDbias_rob %>% right_join(datCHD_final[c("result_id","yi_adj", "vi_adj")], by="result_id") # this data now contains original and adjusted estimates for plotting
 
-dat_plot <- left_join(dat_CHDbias, datCHD_final[, c("result_id", "yi_adj", "vi_adj")])
-tri_plot_bias_direction(dat_plot)
+
+png("beta_carotene_plot.png", width = 900, height = 700)
+tri_plot_bias_direction(dat_CHDbias_final)
+dev.off()
 
 ```

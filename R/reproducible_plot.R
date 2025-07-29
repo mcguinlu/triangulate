@@ -1,4 +1,4 @@
-#' Plot bias-adjusted and unadjusted estimates with RoB
+#' Plot bias-adjusted and unadjusted estimates with RoB, adaptable version of tri_plot_bias_direction
 #'
 #' Creates a forest plot of both raw and adjusted effect estimates, alongside domain-level
 #' risk of bias annotations for each study.
@@ -12,7 +12,7 @@
 #'
 #' @return A forest plot is drawn (base graphics).
 #' @export
-tri_plot_bias_direction <- function(dat, dat_adj = NULL, title = NULL, grouping = "type", rma_method = "REML", ...) {
+tri_plot_bias_direction01 <- function(dat, dat_adj = NULL, title = NULL, grouping = "type", rma_method = "REML", ...) {
 
   # If adjusted estimates are provided separately, join them
   if (!is.null(dat_adj)) {
@@ -119,7 +119,10 @@ rob_direction <- function(dat,
 
   x_max = 4.6 - log(3) + x_adj
   textpos <- c(x_min, x_max-2.2)
-  y_max <- max(rows)+4
+  # Dynamic vertical buffer based on number of studies and subgroups
+  buffer_above <- ceiling(nrow(dat) * 0.15) + length(unique(dat$type))
+
+  y_max <- max(rows) + buffer_above
 
   #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
   # Deal with adding rob data
@@ -251,9 +254,13 @@ rob_direction <- function(dat,
   headers <- c("D1", "D2", "D3", "D4", "D5", "D6","D7", "O")
 
   graphics::par(font = 2)
-  # Need to add handling of top here
-  graphics::text(mean(header_row), y_max-0.3, labels = "Risk of Bias", cex=1.2)
-  graphics::text(header_row, y_max-1.1, labels = headers, cex=1.2)
+  # Finer-tuned placement of RoB titles
+  header_title_y <- y_max - 0.6
+  domain_labels_y <- y_max - 1.5
+
+  # Plot titles
+  graphics::text(mean(header_row), header_title_y, labels = "Risk of Bias", cex = 1.2)
+  graphics::text(header_row, domain_labels_y, labels = headers, cex = 1.2)
   graphics::par(op)
 
   # Plot domain points
