@@ -133,12 +133,16 @@ dat_CHDbias_prep <- dat_CHDbias %>%
   tri_absolute_direction() %>%
   tri_append_bias(custom_bias_priors)
 
-datCHD_final <- tri_prep_data(dat_CHDbias_prep, dat_CHDind)
+```
+## 6. Final data adjusted for both bias and indirectness
 
+```{r final_data}
+
+datCHD_final <- tri_prep_data(dat_CHDbias_prep, dat_CHDind)
 
 ```
 
-## 6. Generate Bias-Adjusted Plot
+## 7. Generate Bias-Adjusted Plot
 
 ```{r plot, fig.width=12, fig.height=8}
 
