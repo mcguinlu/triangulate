@@ -22,7 +22,7 @@ tri_plot_bias_direction(
 
 \item{grouping}{Column by which to stratify subgroups (default = \code{"type"}).}
 
-\item{rma_method}{Meta-analysis method passed to metafor::rma (e.g., "REML", "FE").}
+\item{rma_method}{Meta-analysis method passed to metafor::rma (e.g., "REML", "FE"). We use metafor's default which random-effects}
 
 \item{...}{Additional arguments passed to \code{rob_direction()}.}
 }

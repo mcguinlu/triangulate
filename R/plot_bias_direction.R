@@ -7,7 +7,7 @@
 #' @param title Optional plot title.
 #' @param grouping Column by which to stratify subgroups (default = `"type"`).
 #' @param dat_adj A data frame with adjusted estimates and variances, if different from the main input.
-#' @param rma_method Meta-analysis method passed to metafor::rma (e.g., "REML", "FE").
+#' @param rma_method Meta-analysis method passed to metafor::rma (e.g., "REML", "FE"). We use metafor's default which random-effects
 #' @param ... Additional arguments passed to `rob_direction()`.
 #'
 #' @return A forest plot is drawn (base graphics).
@@ -119,7 +119,11 @@ rob_direction <- function(dat,
 
   x_max = 4.6 - log(3) + x_adj
   textpos <- c(x_min, x_max-2.2)
-  y_max <- max(rows)+4
+  # Dynamic vertical buffer based on number of studies and subgroups
+  # More reproducible vertical buffer: ensures top space scales with distance to first heading
+  buffer_above <- max(4, ceiling(nrow(dat) * 0.10))  # smaller buffer, but never below 4
+  y_max <- max(max(rows) + buffer_above, max(dat_rob_vec$heading) + 2)
+
 
   #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
   # Deal with adding rob data
@@ -251,9 +255,13 @@ rob_direction <- function(dat,
   headers <- c("D1", "D2", "D3", "D4", "D5", "D6","D7", "O")
 
   graphics::par(font = 2)
-  # Need to add handling of top here
-  graphics::text(mean(header_row), y_max-0.3, labels = "Risk of Bias", cex=1.2)
-  graphics::text(header_row, y_max-1.1, labels = headers, cex=1.2)
+  # Finer-tuned placement of RoB titles
+  header_title_y <- y_max - 0.6
+  domain_labels_y <- y_max - 1.5
+
+  # Plot titles
+  graphics::text(mean(header_row), header_title_y, labels = "Risk of Bias", cex = 1.2)
+  graphics::text(header_row, domain_labels_y, labels = headers, cex = 1.2)
   graphics::par(op)
 
   # Plot domain points

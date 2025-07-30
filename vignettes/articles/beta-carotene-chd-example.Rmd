@@ -33,7 +33,7 @@ This tutorial demonstrates how to use the `triangulate` package to perform a bia
 
 ## 1. Load CHD Dataset
 
-The Metadta_all_CHD dataset compiles results from observational, biomarker, randomised controlled trial (RCT), and Mendelian randomisation (MR) studies examining the association between beta-carotene exposure and coronary heart disease (CHD). It includes standardised effect estimates (log risk ratios) and standard errors, allowing for dose-response meta-analysis across different study designs.
+The Metadta_all_CHD dataset compiles results from observational, randomised controlled trial (RCT), and Mendelian randomisation (MR) studies examining the association between beta-carotene exposure and coronary heart disease (CHD). It includes standardised effect estimates (log risk ratios) and standard errors, allowing for dose-response meta-analysis across different study designs.
 
 ```{r create-data}
 
@@ -87,9 +87,10 @@ dat_CHDbias_rob <- dat_CHDbias %>%
 
 ## 4. Add Indirectness & Adjust Effect Estimate for It
 
-In this example, indirectness is assumed to be missing (set to "None") for all domains. However, in real analyses, indirectness judgments can and should be specified if relevant.
+In this example, indirectness is assumed to be missing (set to "None") for all domains. However, in real analyses, indirectness judgments can and should be specified if available.
 
-Also, the tri_append_indirect() function not only appends indirectness priors but also adjusts the effect estimate accordingly — making this a key part of the bias-adjustment pipeline.
+Also, the tri_append_indirect() function not only appends indirectness priors but also adjusts the effect estimate accordingly — therefore the pipeline adjusts the effect estimate by both bias and indirectness.
+
 
 ```{r indirect}
 dat_CHDind <- dat_CHDbias %>% select(result_id, study, type, yi, vi)
