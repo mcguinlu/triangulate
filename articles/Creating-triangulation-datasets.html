@@ -8,8 +8,8 @@
 <title>Creating triangulation datasets • triangulate</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Creating triangulation datasets">
 </head>
 <body>
@@ -35,7 +35,10 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/absolute_direction.html">Absolute direction of bias/indirectness</a></li>
     <li><a class="dropdown-item" href="../articles/additional-levels-of-bias-and-indirectness.html">Adding additional levels of bias and indirectness</a></li>
+    <li><a class="dropdown-item" href="../articles/beta-carotene-chd-example.html">Beta-carotene CHD triangulation example</a></li>
     <li><a class="dropdown-item" href="../articles/Creating-triangulation-datasets.html">Creating triangulation datasets</a></li>
+    <li><a class="dropdown-item" href="../articles/interactive-sensitivity.html">Interactive Sensitivity Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/sensitivity-analysis.html">Sensitivity Analyses in Triangulate</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -61,7 +64,7 @@
       <h1>Creating triangulation datasets</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/mcguinlu/triangulate/blob/v0.1.0/vignettes/articles/Creating-triangulation-datasets.Rmd" class="external-link"><code>vignettes/articles/Creating-triangulation-datasets.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mcguinlu/triangulate/blob/master/vignettes/articles/Creating-triangulation-datasets.Rmd" class="external-link"><code>vignettes/articles/Creating-triangulation-datasets.Rmd</code></a></small>
       <div class="d-none name"><code>Creating-triangulation-datasets.Rmd</code></div>
     </div>
 
@@ -69,22 +72,128 @@
     
 <p><strong>WARNING:</strong> This page is still under construction</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mcguinlu.github.io/triangulate">triangulate</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mcguinlu.github.io/triangulate">triangulate</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h3>
+<p>This vignette demonstrates how to create a triangulation dataset
+using the triangulate package. We will manually construct a small
+example dataset and walk through the process of preparing it for
+triangulation, including appending bias/indirectness values and
+visualizing bias directions.</p>
+</div>
+<div class="section level3">
+<h3 id="step-1-create-the-example-dataset">Step 1: Create the example dataset<a class="anchor" aria-label="anchor" href="#step-1-create-the-example-dataset"></a>
+</h3>
+<p>We define a small dataset of six studies, each with a different
+combination of bias/indirectness type and direction.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">example_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  result_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,</span>
+<span>  study <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Study"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,</span>
+<span>  yi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">.2</span>, <span class="fl">.25</span>, <span class="op">-</span><span class="fl">.1</span>, <span class="op">-</span><span class="fl">.3</span>, <span class="fl">.1</span>, <span class="fl">.3</span><span class="op">)</span>,</span>
+<span>  vi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  d1j <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"moderate"</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  d1t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"add"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"prop"</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  d1d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Favours comparator"</span>, <span class="st">"Favours experimental"</span>,</span>
+<span>          <span class="st">"Away from null"</span>, <span class="st">"Towards null"</span>,</span>
+<span>          <span class="st">"Away from null"</span>, <span class="st">"Towards null"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">example_data</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
+<span><span class="co">#&gt;   result_id study      yi    vi d1j      d1t   d1d                 </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> S1        Study 1 -<span style="color: #BB0000;">0.2</span>  0.013 moderate add   Favours comparator  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> S2        Study 2  0.25 0.043 moderate add   Favours experimental</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> S3        Study 3 -<span style="color: #BB0000;">0.1</span>  0.034 moderate prop  Away from null      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> S4        Study 4 -<span style="color: #BB0000;">0.3</span>  0.016 moderate prop  Towards null        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> S5        Study 5  0.1  0.01  moderate prop  Away from null      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> S6        Study 6  0.3  0.029 moderate prop  Towards null</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="step-2-convert-to-long-format">Step 2: Convert to long format<a class="anchor" aria-label="anchor" href="#step-2-convert-to-long-format"></a>
+</h3>
+<p>Triangulation requires domain-level assessments to be in long format.
+We use tri_to_long() to convert from wide to long form.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">example_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">example_long</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
+<span><span class="co">#&gt;   result_id study      yi    vi domain j        t     d                   </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> S1        Study 1 -<span style="color: #BB0000;">0.2</span>  0.013 d1     moderate add   favours comparator  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> S2        Study 2  0.25 0.043 d1     moderate add   favours experimental</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> S3        Study 3 -<span style="color: #BB0000;">0.1</span>  0.034 d1     moderate prop  away from null      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> S4        Study 4 -<span style="color: #BB0000;">0.3</span>  0.016 d1     moderate prop  towards null        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> S5        Study 5  0.1  0.01  d1     moderate prop  away from null      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> S6        Study 6  0.3  0.029 d1     moderate prop  towards null</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="step-3-add-absolute-direction">Step 3: Add absolute direction<a class="anchor" aria-label="anchor" href="#step-3-add-absolute-direction"></a>
+</h3>
+<p>Calculate the absolute direction of bias/indirectness based on type,
+direction, and position of the estimate relative to the null.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">example_abs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="va">example_long</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">example_abs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
+<span><span class="co">#&gt;   result_id study      yi    vi domain j        t     d    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> S1        Study 1 -<span style="color: #BB0000;">0.2</span>  0.013 d1     moderate add   right</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> S2        Study 2  0.25 0.043 d1     moderate add   left </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> S3        Study 3 -<span style="color: #BB0000;">0.1</span>  0.034 d1     moderate prop  left </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> S4        Study 4 -<span style="color: #BB0000;">0.3</span>  0.016 d1     moderate prop  right</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> S5        Study 5  0.1  0.01  d1     moderate prop  right</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> S6        Study 6  0.3  0.029 d1     moderate prop  left</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="step-4-append-bias-priors">Step 4: Append bias priors<a class="anchor" aria-label="anchor" href="#step-4-append-bias-priors"></a>
+</h3>
+<p>Next, we append numerical prior values (mean and SD) corresponding to
+domain judgments using tri_append_bias().</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">example_bias</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_append_bias.html">tri_append_bias</a></span><span class="op">(</span><span class="va">example_abs</span>, <span class="va">dat_bias_values</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">example_bias</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span></span>
+<span><span class="co">#&gt;   result_id study      yi    vi domain j       t     d     bias_m_add bias_v_add</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> S1        Study 1 -<span style="color: #BB0000;">0.2</span>  0.013 d1     modera… add   right       0.09       0.05</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> S2        Study 2  0.25 0.043 d1     modera… add   left       -<span style="color: #BB0000;">0.09</span>       0.05</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> S3        Study 3 -<span style="color: #BB0000;">0.1</span>  0.034 d1     modera… prop  left        0          0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> S4        Study 4 -<span style="color: #BB0000;">0.3</span>  0.016 d1     modera… prop  right       0          0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> S5        Study 5  0.1  0.01  d1     modera… prop  right       0          0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> S6        Study 6  0.3  0.029 d1     modera… prop  left        0          0   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: bias_m_prop &lt;dbl&gt;, bias_v_prop &lt;dbl&gt;</span></span></span></code></pre></div>
+</div>
 <div class="section level2">
 <h2 id="tbc">TBC<a class="anchor" aria-label="anchor" href="#tbc"></a>
 </h2>
 </div>
-  </main>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Luke McGuinness.</p>
+  <p>Developed by Luke McGuinness, Tassia Jones, Chin Yang Shapland.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

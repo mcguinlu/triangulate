@@ -1,11 +1,14 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   articles/absolute_direction: absolute_direction.html
   articles/additional-levels-of-bias-and-indirectness: additional-levels-of-bias-and-indirectness.html
+  articles/beta-carotene-chd-example: beta-carotene-chd-example.html
   articles/Creating-triangulation-datasets: Creating-triangulation-datasets.html
-last_built: 2024-09-02T18:19Z
+  articles/interactive-sensitivity: interactive-sensitivity.html
+  articles/sensitivity-analysis: sensitivity-analysis.html
+last_built: 2025-11-25T10:52Z
 urls:
   reference: https://mcguinlu.github.io/triangulate/reference
   article: https://mcguinlu.github.io/triangulate/articles
