@@ -32,7 +32,9 @@ Suggests:
     testthat,
     robvis,
     knitr,
-    rmarkdown
+    readxl,
+    rmarkdown,
+    tibble
 Config/testthat/edition: 3
 Imports: 
     dplyr,
@@ -45,8 +47,6 @@ Imports:
     metafor,
     purrr,
     scales,
-    readxl,
-    tibble,
     shiny
 Depends: 
     R (>= 3.5)
