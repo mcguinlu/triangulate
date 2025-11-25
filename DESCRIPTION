@@ -29,8 +29,8 @@ URL: https://mcguinlu.github.io/triangulate,
     https://github.com/mcguinlu/triangulate
 BugReports: https://github.com/mcguinlu/triangulate/issues
 Suggests: 
-    testthat (>= 3.0.0),
-    robvis (>= 0.3.0.900),
+    testthat,
+    robvis,
     knitr,
     rmarkdown
 Config/testthat/edition: 3
