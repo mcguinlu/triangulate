@@ -1,5 +1,5 @@
 ---
-title: "Beta-carotene CHD triangulation example"
+title: "Triangulation example: Beta-carotene and CHD"
 output:
   rmarkdown::html_vignette:
     toc: true
