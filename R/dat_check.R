@@ -1,23 +1,30 @@
-#' Title
+#' Check that required columns are present
 #'
-#' @param dat Data
+#' Validates whether key variables are present in the dataset.
+#' Can toggle between a basic ("minimal") check or a "full" check including columns needed for bias adjustment.
 #'
+#' @param dat A data frame (long or wide format)
+#' @param mode Check mode: either "minimal" or "full"
+#'
+#' @return Throws an error if required columns are missing. Otherwise returns TRUE (invisibly).
 #' @export
-#'
-tri_dat_check <- function(dat) {
-  cols <- colnames(dat)
+tri_dat_check <- function(dat, mode = c("minimal", "full")) {
+  mode <- match.arg(mode)
 
-  args <- c("result_id", "study", "type", "yi", "vi")
+  required_cols <- switch(
+    mode,
+    minimal = c("result_id", "study", "type", "yi", "vi"),
+    full = c("result_id", "study", "type", "yi", "vi", "domain", "j", "d", "t")
+  )
 
-  for (x in args) {
-    stop_fn(x,cols = cols)
+  missing_cols <- setdiff(required_cols, colnames(dat))
+
+  if (length(missing_cols) > 0) {
+    stop("tri_dat_check(): The following required column(s) are missing: ",
+         paste(missing_cols, collapse = ", "))
   }
 
-  message("Looks good!\nAll expected columns are present in the dataset.")
+  message("tri_dat_check(): All expected columns are present (mode = '", mode, "').")
+  invisible(TRUE)
 }
 
-stop_fn <- function(x, cols = cols){
-  if (!(x %in% cols)) {
-    stop(paste0("Column '",x,"' is missing from dataset"))
-  }
-}

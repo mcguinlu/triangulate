@@ -2,13 +2,17 @@
 % Please edit documentation in R/dat_munging.R
 \name{tri_to_long}
 \alias{tri_to_long}
-\title{Title}
+\title{Convert data from wide to long format}
 \usage{
 tri_to_long(dat)
 }
 \arguments{
-\item{dat}{Data in wide format}
+\item{dat}{A data frame in wide format}
+}
+\value{
+A long-format data frame with columns: domain, j, t, d
 }
 \description{
-Title
+Reshapes domain-level bias columns from wide format (e.g., d1j, d1t, d1d) to long format.
+Assumes columns follow naming pattern like d1j, d1t, d1d, d2j, etc.
 }

@@ -2,16 +2,16 @@
 % Please edit documentation in R/absolute_direction.R
 \name{tri_absolute_direction_quick}
 \alias{tri_absolute_direction_quick}
-\title{Title}
+\title{Quick wrapper to apply absolute direction transformation}
 \usage{
 tri_absolute_direction_quick(dat, invert = FALSE)
 }
 \arguments{
-\item{dat}{Triangulation dataset}
+\item{dat}{Dataset in wide format ## check this is the correct parameter}
 
-\item{invert}{Direction indicator}
+\item{invert}{If TRUE, reverse transformation (absolute → qualitative)}
 }
 \description{
-A helper function to quickly convert from relative to absolute
-directions of bias, or vice versa
+Converts data between wide and long format while applying or reversing
+the absolute direction transformation.
 }

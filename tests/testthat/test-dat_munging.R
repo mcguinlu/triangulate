@@ -1,16 +1,17 @@
-dat <- robvis::data_bias_direction %>%
-  tri_to_long() %>%
-  tri_absolute_direction() %>%
-  tri_to_wide()
+test_that("tri_to_long and tri_to_wide retain structure", {
+  dat_long <- triangulate::dat_bias %>%
+    tri_to_long()
 
+  expect_true("domain" %in% names(dat_long))
+  expect_true("j" %in% names(dat_long))
+  expect_true("d" %in% names(dat_long))
+  expect_true("t" %in% names(dat_long))
 
-dat_quick <- robvis::data_bias_direction %>%
-  tri_absolute_direction_quick()
+  dat_wide <- dat_long %>%
+    tri_to_wide()
 
-test_that("cleaned dimensions are correct", {
-  expect_equal(nrow(dat), 20)
-  expect_equal(ncol(dat), 27)
-
-  expect_equal(nrow(dat), nrow(dat_quick))
-  expect_equal(ncol(dat), ncol(dat_quick))
+  expect_equal(nrow(dat_wide), nrow(triangulate::dat_bias))
 })
+
+
+

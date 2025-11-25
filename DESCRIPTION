@@ -2,11 +2,21 @@ Package: triangulate
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.1
 Authors@R: 
-    person(given = "Luke",
-           family = "McGuinness",
-           role = c("aut", "cre"),
-           email = "luke.mcguinness@bristol.ac.uk",
-           comment = c(ORCID = "0000-0001-8730-9761"))
+    c(
+      person(given = "Luke",
+             family = "McGuinness",
+             role = c("aut", "cre"),
+             email = "luke.mcguinness@bristol.ac.uk",
+             comment = c(ORCID = "0000-0001-8730-9761")),
+      person(given = "Tassia",
+             family = "Jones",
+             role = "aut",
+             email = "nv22679@bristol.ac.uk"),
+      person(given = "Chin Yang",
+             family = "Shapland",
+             role = "aut",
+             email = "chinyang.shapland@bristol.ac.uk")
+    )
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 VignetteBuilder: 
@@ -14,7 +24,7 @@ VignetteBuilder:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 URL: https://mcguinlu.github.io/triangulate,
     https://github.com/mcguinlu/triangulate
 BugReports: https://github.com/mcguinlu/triangulate/issues
@@ -29,8 +39,16 @@ Imports:
     tidyr,
     stringr,
     magrittr,
-    janitor
+    janitor,
+    ggplot2,
+    metadat,
+    metafor,
+    purrr,
+    scales,
+    readxl,
+    tibble,
+    shiny
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5)
 Remotes: 
     mcguinlu/robvis

@@ -2,15 +2,20 @@
 % Please edit documentation in R/effect_direction.R
 \name{tri_swap_effect_direction}
 \alias{tri_swap_effect_direction}
-\title{Title}
+\title{Standardise Effect Direction and Adjust Bias Directions}
 \usage{
 tri_swap_effect_direction(dat, types = NULL)
 }
 \arguments{
-\item{dat}{Data in long format}
+\item{dat}{A long-format triangulation dataset}
 
-\item{types}{Vector of study types for which the direction should be reversed}
+\item{types}{A character vector of \code{type} values to flip (e.g. c("OR", "RR"))}
+}
+\value{
+A modified dataset with adjusted \code{yi} and \code{d} values
 }
 \description{
-Title
+Flips effect estimates (\code{yi}) and proportional bias directions (\code{d})
+for specified study types (e.g., odds ratios) to ensure consistency
+across studies using different metrics.
 }

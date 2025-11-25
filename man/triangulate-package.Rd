@@ -20,5 +20,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Luke McGuinness \email{luke.mcguinness@bristol.ac.uk} (\href{https://orcid.org/0000-0001-8730-9761}{ORCID})
 
+Authors:
+\itemize{
+  \item Tassia Jones \email{nv22679@bristol.ac.uk}
+  \item Chin Yang Shapland \email{chinyang.shapland@bristol.ac.uk}
+}
+
 }
 \keyword{internal}

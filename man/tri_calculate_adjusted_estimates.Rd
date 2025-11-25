@@ -2,13 +2,17 @@
 % Please edit documentation in R/analysis.R
 \name{tri_calculate_adjusted_estimates}
 \alias{tri_calculate_adjusted_estimates}
-\title{Title}
+\title{Calculate Bias-Adjusted Estimates}
 \usage{
 tri_calculate_adjusted_estimates(dat)
 }
 \arguments{
-\item{dat}{Data in long format}
+\item{dat}{A dataset prepared using \code{tri_prep_data()}, containing bias parameters}
+}
+\value{
+A tibble with added \code{yi_adj} and \code{vi_adj} columns
 }
 \description{
-Title
+Computes adjusted effect estimates (\code{yi_adj}) and variances (\code{vi_adj})
+incorporating additive and proportional bias adjustments.
 }

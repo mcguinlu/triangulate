@@ -2,15 +2,19 @@
 % Please edit documentation in R/analysis.R
 \name{tri_prep_data}
 \alias{tri_prep_data}
-\title{Title}
+\title{Prepare bias and indirectness data for adjustment}
 \usage{
 tri_prep_data(dat_bias, dat_ind)
 }
 \arguments{
-\item{dat_bias}{Cleaned bias dataset}
+\item{dat_bias}{Data with bias priors (long format)}
 
-\item{dat_ind}{Cleaned indirectness dataset}
+\item{dat_ind}{Data with indirectness priors (long format)}
+}
+\value{
+Data with yi/vi and adjustment components ready for adjustment
 }
 \description{
-Title
+Aggregates domain-level prior data and calculates total adjustment values
+per study result. Supports additive and proportional adjustments.
 }

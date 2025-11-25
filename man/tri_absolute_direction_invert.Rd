@@ -2,7 +2,7 @@
 % Please edit documentation in R/absolute_direction.R
 \name{tri_absolute_direction_invert}
 \alias{tri_absolute_direction_invert}
-\title{Title}
+\title{Convert absolute direction back to qualitative tool labels}
 \usage{
 tri_absolute_direction_invert(dat)
 }
@@ -10,5 +10,6 @@ tri_absolute_direction_invert(dat)
 \item{dat}{Data in long format}
 }
 \description{
-Title
+Reverses the transformation done by \code{tri_absolute_direction()}, converting
+absolute directions ("left"/"right") back to labels like "Favours comparator".
 }
