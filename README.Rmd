@@ -38,7 +38,7 @@ This package deals with steps 5 and 6.
 ## Installation
 
 ``` {r, eval = FALSE}
-devtools::install_github("mcguinlutriangulate")
+devtools::install_github("mcguinlu/triangulate")
 ```
 
 ## :warning: WARNING NOTES
