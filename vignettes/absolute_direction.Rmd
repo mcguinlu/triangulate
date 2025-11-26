@@ -1,5 +1,10 @@
 ---
 title: "Absolute direction of bias/indirectness"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Absolute direction of bias/indirectness}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
