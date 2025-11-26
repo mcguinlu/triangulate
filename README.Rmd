@@ -83,41 +83,29 @@ For details on how to create these datasets, see the [Creating triangulation dat
 Once we load our data, helper functions will convert it to _long_ format and convert to absolute directions of bias/indirectness.
 
 ```{r}
-
 dat_bias <- triangulate::dat_bias %>%
 
 # Convert to long format
 tri_to_long() %>%
-  
-tri_absolute_direction() %>%
-
-tri_append_bias(triangulate::dat_bias_values)
-
+  tri_absolute_direction() %>%
+  tri_append_bias(triangulate::dat_bias_values)
 ```
-
-
-
-
 
 Then apply the same approach to the indirectness dataset:
 
 ```{r}
 dat_ind <- triangulate::dat_ind %>%
-# Convert to long format
-tri_to_long() %>%
-tri_absolute_direction() %>%
-tri_append_indirect(triangulate::dat_ind_values)
-
+  # Convert to long format
+  tri_to_long() %>%
+  tri_absolute_direction() %>%
+  tri_append_indirect(triangulate::dat_ind_values)
 ```
-
-
 
 ## Add prior distributions of bias/indirectness
 
 ```{r}
 dat_bias_values
 ```
-
 
 ## Create final dataset and analyse
 
@@ -131,8 +119,7 @@ At this point, we have an unadjusted (_yi_, _vi_) and adjusted (_yi_adj_, _vi_ad
 
 These estimates can then simply be passed to `metafor` for analysis
 
-``` {r, out.height = 1800,out.height=400}
-
+``` {r}
 model <- metafor::rma(
   yi = yi,
   vi = vi,
@@ -160,5 +147,4 @@ metafor::forest(
   model_adj,
   atransf = exp
 )
-
 ```
