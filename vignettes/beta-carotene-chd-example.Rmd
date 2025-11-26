@@ -13,13 +13,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-if (!requireNamespace("robvis", quietly = TRUE)) {
-  stop(
-    "Package \"robvis\" must be installed to run this vignette.",
-    call. = FALSE
-  )
-}
-
 if (!requireNamespace("readxl", quietly = TRUE)) {
   stop(
     "Package \"readxl\" must be installed to run this vignette.",

@@ -30,7 +30,6 @@ URL: https://mcguinlu.github.io/triangulate,
 BugReports: https://github.com/mcguinlu/triangulate/issues
 Suggests: 
     testthat,
-    robvis,
     knitr,
     readxl,
     rmarkdown,
@@ -50,5 +49,3 @@ Imports:
     shiny
 Depends: 
     R (>= 3.5)
-Remotes: 
-    mcguinlu/robvis

@@ -1,7 +1,5 @@
 test_that("tri_to_long and tri_to_wide retain structure", {
 
-  skip_if_not_installed("robvis")
-
   dat_long <- triangulate::dat_bias %>%
     tri_to_long()
 
