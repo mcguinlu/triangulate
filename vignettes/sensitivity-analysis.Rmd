@@ -35,7 +35,6 @@ We use a manually-created, simplified version of the CHD dataset, examining how 
 We define a small synthetic dataset mimicking studies with moderate bias and indirectness.
 
 ```{r data}
-
 # creates 4 made up study results with effect estimates (yi) and variances (vi)
 
 example_data <- tibble(
@@ -44,7 +43,6 @@ example_data <- tibble(
   yi = c(-0.2, 0.25, -0.1, 0.15),
   vi = c(0.02, 0.03, 0.015, 0.025)
 )
-
 ```
 
 ## Define Default Bias and Indirectness Priors
@@ -52,7 +50,6 @@ example_data <- tibble(
 We apply "moderate" priors for all studies, similar to a base-case analysis.
 
 ```{r bias-indirect}
-
 # assumptions about additive and proportional bias, each with some uncertainty
 
 bias_priors <- example_data %>%
@@ -66,8 +63,6 @@ bias_priors <- example_data %>%
     type = "RCT"  # or whatever design you want
   )
 
-
-
 indirectness_priors <- tibble(
   result_id = example_data$result_id,
   domain = "all",
@@ -77,9 +72,6 @@ indirectness_priors <- tibble(
   ind_m_prop = 0.05,
   ind_v_prop = 0.02
 )
-
-
-
 ```
 
 ## Run bias adjustment
@@ -87,7 +79,6 @@ indirectness_priors <- tibble(
 We use tri_prep_data() and tri_calculate_adjusted_estimates() to get bias-adjusted effect sizes.
 
 ```{r adjustment}
-
 # this is where we combine the bias/indirectness priors with the study results and adjusts yi and vi to get new columns yi_adj and vi_adj for the adjusted estimate and varainces, respectively
 
 base_prepped <- tri_prep_data(bias_priors, indirectness_priors)
@@ -95,7 +86,6 @@ base_adjusted <- tri_calculate_adjusted_estimates(base_prepped)
 
 base_adjusted %>% 
   select(result_id, yi, yi_adj, vi, vi_adj)
-
 ```
 
 ## Stricter sensitivity scenario
@@ -118,23 +108,19 @@ sensitive_adjusted <- tri_calculate_adjusted_estimates(sensitive_prepped)
 
 sensitive_adjusted %>%
   select(result_id, yi, yi_adj, vi, vi_adj)
-
-
 ```
 
-## compare results
+## Compare results
 
 We plot the adjusted effect estimates under both scenarios.
 
-```{r compare}
-
+```{r compare, fig.alt="Plot comparing estimates", fig.width=7}
 # overlays the 2 scenarios to visually represent how the priors affect the estimated effect
 comparison <- bind_rows(
   base_adjusted %>% mutate(scenario = "Base"),
   sensitive_adjusted %>% mutate(scenario = "Stricter Bias")
 ) %>%
   mutate(result_id = factor(result_id, levels = paste0("S", 1:4)))  # or use your preferred order
-
 
 ggplot(comparison, aes(y = result_id, x = yi_adj, color = scenario)) +
   geom_point(position = position_dodge(0.4), size = 3) +
@@ -150,18 +136,10 @@ ggplot(comparison, aes(y = result_id, x = yi_adj, color = scenario)) +
     y = "Study"                   # now vertical axis
   ) +
   theme_minimal()
-
-
-
-
-
-
 ```
 
-## conclusion
+## Conclusion
 
 This vignette illustrates how small changes in prior assumptions can impact adjusted effect estimates. While triangulate doesn't yet include a built-in sensitivity function, this process can be easily scripted for exploring model robustness.
-
-
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

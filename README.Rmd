@@ -111,7 +111,7 @@ dat_bias_values
 
 We now have two clean datasets, one for bias and one for indirectness, that we can use to 
 
-``` {r}
+```{r}
 dat_final <- tri_prep_data(dat_bias, dat_ind)
 ```
 
@@ -119,7 +119,7 @@ At this point, we have an unadjusted (_yi_, _vi_) and adjusted (_yi_adj_, _vi_ad
 
 These estimates can then simply be passed to `metafor` for analysis
 
-``` {r}
+```{r, fig.alt=c("Forest plot", "Forest plot")}
 model <- metafor::rma(
   yi = yi,
   vi = vi,
