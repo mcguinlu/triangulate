@@ -21,7 +21,6 @@ library(triangulate)
 library(dplyr)
 library(tibble)
 library(ggplot2)
-
 ```
 
 ## Introduction
