@@ -29,7 +29,7 @@ This package deals with steps 5 and 6.
 ## Installation
 
 ``` r
-devtools::install_github("mcguinlu/triangulate")
+remotes::install_github("mcguinlu/triangulate")
 ```
 
 ## :warning: WARNING NOTES
@@ -174,7 +174,7 @@ metafor::forest(
 )
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" alt="Forest plot" width="100%" />
 
 ``` r
 
@@ -193,4 +193,4 @@ metafor::forest(
 )
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-2.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-2.png" alt="Forest plot" width="100%" />
