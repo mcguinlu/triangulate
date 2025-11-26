@@ -141,7 +141,7 @@ datCHD_final <- tri_prep_data(dat_CHDbias_prep, dat_CHDind)
 
 ## 7. Generate Bias-Adjusted Plot
 
-```{r plot, fig.width = 9, fig.height = 7}
+```{r plot, fig.width = 9, fig.height = 7, fig.alt="Triangulate bias-adjusted plot"}
 dat_CHDbias_final<-dat_CHDbias_rob %>% right_join(datCHD_final[c("result_id","yi_adj", "vi_adj")], by="result_id") # this data now contains original and adjusted estimates for plotting
 tri_plot_bias_direction(dat_CHDbias_final)
 ```
