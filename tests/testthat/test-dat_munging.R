@@ -15,6 +15,3 @@ test_that("tri_to_long and tri_to_wide retain structure", {
 
   expect_equal(nrow(dat_wide), nrow(triangulate::dat_bias))
 })
-
-
-
