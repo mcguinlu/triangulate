@@ -53,6 +53,7 @@ interactive_bias_plot(example_data)
 ## Conclusion
 
 This tool is useful for exploring how robust your triangulated estimates are to different prior assumptions. You can use it with your own data by passing a data frame with columns:
+
 - `result_id`
 - `study`
 - `type`
