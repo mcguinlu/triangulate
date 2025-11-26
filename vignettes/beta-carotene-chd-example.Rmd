@@ -1,10 +1,6 @@
 ---
 title: "Triangulation example: Beta-carotene and CHD"
-output:
-  rmarkdown::html_vignette:
-    toc: true
-    toc_depth: 2
-    number_sections: true
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Triangulation example: Beta-carotene and CHD}
   %\VignetteEngine{knitr::rmarkdown}
