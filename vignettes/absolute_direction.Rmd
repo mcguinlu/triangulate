@@ -21,7 +21,7 @@ library(triangulate)
 
 The first step of the adjustment is to calculate the absolute direction of bias/indirectness. A helpful way to understand this.  plotted on a standard forest plot. Note that the red arrows show the absolute direction of bias, **_not_** the direction of adjustment.
 
-![](exampleDirection.png)
+![](exampleDirection.png){alt="Forest plot."}
 
 For _additive_ bias/indirectness, the position of the point estimate does not effect the absolute direction of bias. That is, regardless of whether the point estimate is above or below the null, the absolute direction of bias/indirectness will be the same.
 
