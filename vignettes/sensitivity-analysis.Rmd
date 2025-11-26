@@ -6,9 +6,9 @@ output:
     toc_depth: 2
     number_sections: true
 vignette: >
-  %\\VignetteIndexEntry{Sensitivity Analyses in Triangulate}
-  %\\VignetteEngine{knitr::rmarkdown}
-  %\\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{Sensitivity Analyses in Triangulate}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
