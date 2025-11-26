@@ -4,7 +4,7 @@
 \name{triangulate-package}
 \alias{triangulate}
 \alias{triangulate-package}
-\title{triangulate: What the Package Does (One Line, Title Case)}
+\title{triangulate: Useful functions for performing evidence triangulation}
 \description{
 What the package does (one paragraph).
 }
