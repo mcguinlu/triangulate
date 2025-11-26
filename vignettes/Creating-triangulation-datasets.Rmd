@@ -1,5 +1,10 @@
 ---
 title: "Creating triangulation datasets"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating triangulation datasets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 **WARNING:** This page is still under construction
