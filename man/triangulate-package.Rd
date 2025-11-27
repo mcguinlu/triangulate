@@ -4,7 +4,7 @@
 \name{triangulate-package}
 \alias{triangulate}
 \alias{triangulate-package}
-\title{triangulate: What the Package Does (One Line, Title Case)}
+\title{triangulate: Useful functions for performing evidence triangulation}
 \description{
 What the package does (one paragraph).
 }
@@ -13,6 +13,7 @@ Useful links:
 \itemize{
   \item \url{https://mcguinlu.github.io/triangulate}
   \item \url{https://github.com/mcguinlu/triangulate}
+  \item \url{https://mrcieu.r-universe.dev/triangulate}
   \item Report bugs at \url{https://github.com/mcguinlu/triangulate/issues}
 }
 

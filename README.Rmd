@@ -22,8 +22,6 @@ knitr::opts_chunk$set(
 
 The goal of triangulate is to create a generalised version of the bias-adjusted meta-analysis approach originally proposed by Turner et al. 
 
-
-
 There are a number of steps to this process:
 
 1. Define the causal question of interest
@@ -37,8 +35,16 @@ This package deals with steps 5 and 6.
 
 ## Installation
 
-``` {r, eval = FALSE}
-devtools::install_github("mcguinlutriangulate")
+To install either run
+
+```r
+install.packages('triangulate', repos = c('https://mrcieu.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+or
+
+```{r, eval = FALSE}
+remotes::install_github("mcguinlu/triangulate")
 ```
 
 ## :warning: WARNING NOTES
@@ -83,34 +89,23 @@ For details on how to create these datasets, see the [Creating triangulation dat
 Once we load our data, helper functions will convert it to _long_ format and convert to absolute directions of bias/indirectness.
 
 ```{r}
-
 dat_bias <- triangulate::dat_bias %>%
 
 # Convert to long format
 tri_to_long() %>%
-  
-tri_absolute_direction() %>%
-
-tri_append_bias(triangulate::dat_bias_values)
-
+  tri_absolute_direction() %>%
+  tri_append_bias(triangulate::dat_bias_values)
 ```
-
-
-
-
 
 Then apply the same approach to the indirectness dataset:
 
 ```{r}
 dat_ind <- triangulate::dat_ind %>%
-# Convert to long format
-tri_to_long() %>%
-tri_absolute_direction() %>%
-tri_append_indirect(triangulate::dat_ind_values)
-
+  # Convert to long format
+  tri_to_long() %>%
+  tri_absolute_direction() %>%
+  tri_append_indirect(triangulate::dat_ind_values)
 ```
-
-
 
 ## Add prior distributions of bias/indirectness
 
@@ -118,12 +113,11 @@ tri_append_indirect(triangulate::dat_ind_values)
 dat_bias_values
 ```
 
-
 ## Create final dataset and analyse
 
 We now have two clean datasets, one for bias and one for indirectness, that we can use to 
 
-``` {r}
+```{r}
 dat_final <- tri_prep_data(dat_bias, dat_ind)
 ```
 
@@ -131,8 +125,7 @@ At this point, we have an unadjusted (_yi_, _vi_) and adjusted (_yi_adj_, _vi_ad
 
 These estimates can then simply be passed to `metafor` for analysis
 
-``` {r, out.height = 1800,out.height=400}
-
+```{r, fig.alt=c("Forest plot", "Forest plot")}
 model <- metafor::rma(
   yi = yi,
   vi = vi,
@@ -160,5 +153,4 @@ metafor::forest(
   model_adj,
   atransf = exp
 )
-
 ```

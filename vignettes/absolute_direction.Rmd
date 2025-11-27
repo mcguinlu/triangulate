@@ -1,5 +1,10 @@
 ---
 title: "Absolute direction of bias/indirectness"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Absolute direction of bias/indirectness}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -12,29 +17,27 @@ library(dplyr)
 library(triangulate)
 ```
 
-
-
-### Absolute directions of bias/indirectness
+## Absolute directions of bias/indirectness
 
 The first step of the adjustment is to calculate the absolute direction of bias/indirectness. A helpful way to understand this.  plotted on a standard forest plot. Note that the red arrows show the absolute direction of bias, **_not_** the direction of adjustment.
 
-![](exampleDirection.png)
+![](exampleDirection.png){alt="Forest plot."}
 
 For _additive_ bias/indirectness, the position of the point estimate does not effect the absolute direction of bias. That is, regardless of whether the point estimate is above or below the null, the absolute direction of bias/indirectness will be the same.
 
 In contrast, for _proportional bias/indirectness_, the absolute direction of bias depends on the position of the effect estimate. There are two scenarios to consider:
 
-#### Point estimate below NULL 
+### Point estimate below NULL 
 
 If the effect estimate is below the null, then _bias towards the null_ would be adjusted for by moving the effect estimate proportionally to the left. Conversely, _bias away from the null_ would be adjusted for moving the point estimate proportionally to the right.
 
-#### Point estimate above NULL - Bias towards the NULL
+### Point estimate above NULL - Bias towards the NULL
 
 In contrast, if the effect estimate is below the null, then _bias towards the null_ would be adjusted for by moving the effect estimate proportionally to the left. Conversely, _bias away from the null_ would be adjusted for moving the point estimate proportionally to the right.
 
 For example, if the effect estimate represents a protective effect (below the null), then bias towards the null would be adjusted for by moving the effect estimate proportionally to the right. In contrast, if the effect of the intervention is harmful (effect estimate above the null), bias towards the null would be adjusted for by moving the effect estimate proportionally to the left.
 
-### Adding the adjustment values
+## Adding the adjustment values
 
 The absolute direction is also used when defining the sign of the prior in the `tri_append_*()` functions. If the bias/indirectness is expected to pull the effect to the _**right**_ (absolute direction = right), it is given a positive sign. This is because in `tri_calculate_adjusted_estimates()`, we are subtracting the total additive bias from the effect estimate $y_i$. 
 
@@ -48,7 +51,7 @@ $y_i - (-0.6)$ = $y_i + 0.6$
 
 See Section 6.1 of [Turner et al.](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1467-985X.2008.00547.x) for the derivation of these equations.
 
-### Example
+## Example
 
 To illustrate this and ensure that our code is working correctly, lets consider a simple dataset of 6 studies, with each study fulfilling one of the scenarios described above.
 
@@ -66,7 +69,6 @@ example_data <- tibble(
           "Away from null", "Towards null")
 )
 
-
 # Complete the preparation steps of triangulate
 example_data_prepped <- example_data %>%
   tri_to_long() %>%
@@ -75,36 +77,42 @@ example_data_prepped <- example_data %>%
 ```  
 
 ### Additive - Favours comparator - right - positive sign
+
 ```{r}
 example_data[1,]
 example_data_prepped[1,]
 ```
 
 ### Additive - Favours intervention - left - negative sign
+
 ```{r}
 example_data[2,]
 example_data_prepped[2,]
 ```
 
 ### Proportional - Point estimate above NULL - Towards the NULL - left - negative sign
+
 ```{r}
 example_data[3,]
 example_data_prepped[3,]
 ```
 
 ### Proportional - Point estimate below NULL - Away from NULL - right - positive sign
+
 ```{r}
 example_data[4,]
 example_data_prepped[4,]
 ```
 
 ### Proportional - Point estimate below NULL - Towards the NULL - right - positive sign
+
 ```{r}
 example_data[5,]
 example_data_prepped[5,]
 ```
 
 ### Proportional - Point estimate below NULL - Away from NULL - left - negative sign
+
 ```{r}
 example_data[6,]
 example_data_prepped[6,]
