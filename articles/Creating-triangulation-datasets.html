@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Creating triangulation datasets • triangulate</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,11 +16,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">triangulate</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/absolute_direction.html">Absolute direction of bias/indirectness</a></li>
     <li><a class="dropdown-item" href="../articles/additional-levels-of-bias-and-indirectness.html">Adding additional levels of bias and indirectness</a></li>
-    <li><a class="dropdown-item" href="../articles/beta-carotene-chd-example.html">Beta-carotene CHD triangulation example</a></li>
+    <li><a class="dropdown-item" href="../articles/beta-carotene-chd-example.html">Triangulation example: Beta-carotene and CHD</a></li>
     <li><a class="dropdown-item" href="../articles/Creating-triangulation-datasets.html">Creating triangulation datasets</a></li>
     <li><a class="dropdown-item" href="../articles/interactive-sensitivity.html">Interactive Sensitivity Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/sensitivity-analysis.html">Sensitivity Analyses in Triangulate</a></li>
@@ -48,6 +48,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/mcguinlu/triangulate/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -64,7 +72,7 @@
       <h1>Creating triangulation datasets</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/mcguinlu/triangulate/blob/master/vignettes/articles/Creating-triangulation-datasets.Rmd" class="external-link"><code>vignettes/articles/Creating-triangulation-datasets.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mcguinlu/triangulate/blob/master/vignettes/Creating-triangulation-datasets.Rmd" class="external-link"><code>vignettes/Creating-triangulation-datasets.Rmd</code></a></small>
       <div class="d-none name"><code>Creating-triangulation-datasets.Rmd</code></div>
     </div>
 
@@ -82,18 +90,18 @@
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h3>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>This vignette demonstrates how to create a triangulation dataset
 using the triangulate package. We will manually construct a small
 example dataset and walk through the process of preparing it for
 triangulation, including appending bias/indirectness values and
 visualizing bias directions.</p>
 </div>
-<div class="section level3">
-<h3 id="step-1-create-the-example-dataset">Step 1: Create the example dataset<a class="anchor" aria-label="anchor" href="#step-1-create-the-example-dataset"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-1-create-the-example-dataset">Step 1: Create the example dataset<a class="anchor" aria-label="anchor" href="#step-1-create-the-example-dataset"></a>
+</h2>
 <p>We define a small dataset of six studies, each with a different
 combination of bias/indirectness type and direction.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -120,14 +128,13 @@ combination of bias/indirectness type and direction.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> S5        Study 5  0.1  0.01  moderate prop  Away from null      </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> S6        Study 6  0.3  0.029 moderate prop  Towards null</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="step-2-convert-to-long-format">Step 2: Convert to long format<a class="anchor" aria-label="anchor" href="#step-2-convert-to-long-format"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-2-convert-to-long-format">Step 2: Convert to long format<a class="anchor" aria-label="anchor" href="#step-2-convert-to-long-format"></a>
+</h2>
 <p>Triangulation requires domain-level assessments to be in long format.
 We use tri_to_long() to convert from wide to long form.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">example_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">example_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">example_long</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
 <span><span class="co">#&gt;   result_id study      yi    vi domain j        t     d                   </span></span>
@@ -139,14 +146,13 @@ We use tri_to_long() to convert from wide to long form.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> S5        Study 5  0.1  0.01  d1     moderate prop  away from null      </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> S6        Study 6  0.3  0.029 d1     moderate prop  towards null</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="step-3-add-absolute-direction">Step 3: Add absolute direction<a class="anchor" aria-label="anchor" href="#step-3-add-absolute-direction"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-3-add-absolute-direction">Step 3: Add absolute direction<a class="anchor" aria-label="anchor" href="#step-3-add-absolute-direction"></a>
+</h2>
 <p>Calculate the absolute direction of bias/indirectness based on type,
 direction, and position of the estimate relative to the null.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">example_abs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="va">example_long</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">example_abs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="va">example_long</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">example_abs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
 <span><span class="co">#&gt;   result_id study      yi    vi domain j        t     d    </span></span>
@@ -158,14 +164,13 @@ direction, and position of the estimate relative to the null.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> S5        Study 5  0.1  0.01  d1     moderate prop  right</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> S6        Study 6  0.3  0.029 d1     moderate prop  left</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="step-4-append-bias-priors">Step 4: Append bias priors<a class="anchor" aria-label="anchor" href="#step-4-append-bias-priors"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-4-append-bias-priors">Step 4: Append bias priors<a class="anchor" aria-label="anchor" href="#step-4-append-bias-priors"></a>
+</h2>
 <p>Next, we append numerical prior values (mean and SD) corresponding to
 domain judgments using tri_append_bias().</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">example_bias</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_append_bias.html">tri_append_bias</a></span><span class="op">(</span><span class="va">example_abs</span>, <span class="va">dat_bias_values</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">example_bias</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_append_bias.html">tri_append_bias</a></span><span class="op">(</span><span class="va">example_abs</span>, <span class="va">dat_bias_values</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">example_bias</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span></span>
 <span><span class="co">#&gt;   result_id study      yi    vi domain j       t     d     bias_m_add bias_v_add</span></span>
@@ -177,10 +182,6 @@ domain judgments using tri_append_bias().</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> S5        Study 5  0.1  0.01  d1     modera… prop  right       0          0   </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> S6        Study 6  0.3  0.029 d1     modera… prop  left        0          0   </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: bias_m_prop &lt;dbl&gt;, bias_v_prop &lt;dbl&gt;</span></span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="tbc">TBC<a class="anchor" aria-label="anchor" href="#tbc"></a>
-</h2>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

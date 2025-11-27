@@ -39,13 +39,9 @@ It is then just a case of passing our custom prior dataset to the prep
 functions:
 
 ``` r
-
 dat_bias_with_critical_prepped <- dat_bias_with_critical %>%
-  
   tri_to_long() %>%
-  
   tri_absolute_direction() %>%
-  
   tri_append_bias(custom_bias_priors)
 
 dat_bias_with_critical_prepped[1:7,c(2,6:13)]

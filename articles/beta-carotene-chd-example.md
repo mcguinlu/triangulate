@@ -1,4 +1,4 @@
-# Beta-carotene CHD triangulation example
+# Triangulation example: Beta-carotene and CHD
 
 > This example is based on data and analysis from [Shapland et al.,
 > 2024](https://www.medrxiv.org/content/10.1101/2024.09.20.24314046v1).
@@ -21,15 +21,12 @@ coronary heart disease (CHD). It includes standardised effect estimates
 meta-analysis across different study designs.
 
 ``` r
-
 # Data loaded from:
 # “Res_MetaAll_beta_carotene_AllCHD_v2.Rdata” saved in the
 # R/CHD/01_Prep_Data.R directory of the GitHub repository:
 # https://github.com/CYShapland/BetaCarotene_CVD
 
-
 load(system.file("extdata", "Res_MetaAll_beta_carotene_AllCHD_v2.Rdata", package = "triangulate"))
-     
 ```
 
 ## 2. Merge with RoB Assessments
@@ -118,7 +115,6 @@ custom_bias_priors <- triangulate::dat_bias_values %>%
 ### 5.2 Append priors and prepare data, and estimate adjusted effects
 
 ``` r
-
 dat_CHDbias_prep <- dat_CHDbias %>%
   tri_to_long() %>%
   tri_absolute_direction() %>%
@@ -128,20 +124,15 @@ dat_CHDbias_prep <- dat_CHDbias %>%
 ## 6. Final data adjusted for both bias and indirectness
 
 ``` r
-
 datCHD_final <- tri_prep_data(dat_CHDbias_prep, dat_CHDind)
 ```
 
 ## 7. Generate Bias-Adjusted Plot
 
 ``` r
-
 dat_CHDbias_final<-dat_CHDbias_rob %>% right_join(datCHD_final[c("result_id","yi_adj", "vi_adj")], by="result_id") # this data now contains original and adjusted estimates for plotting
-
-
-png("beta_carotene_plot.png", width = 900, height = 700)
 tri_plot_bias_direction(dat_CHDbias_final)
-dev.off()
-#> agg_png 
-#>       2
 ```
+
+![Triangulate bias-adjusted
+plot](beta-carotene-chd-example_files/figure-html/plot-1.png)

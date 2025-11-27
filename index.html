@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>What the Package Does (One Line, Title Case) • triangulate</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Useful functions for performing evidence triangulation • triangulate</title>
+<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="What the Package Does (One Line, Title Case)">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Useful functions for performing evidence triangulation">
 <meta name="description" content="What the package does (one paragraph).">
 <meta property="og:description" content="What the package does (one paragraph).">
 </head>
@@ -18,11 +18,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">triangulate</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/absolute_direction.html">Absolute direction of bias/indirectness</a></li>
     <li><a class="dropdown-item" href="articles/additional-levels-of-bias-and-indirectness.html">Adding additional levels of bias and indirectness</a></li>
-    <li><a class="dropdown-item" href="articles/beta-carotene-chd-example.html">Beta-carotene CHD triangulation example</a></li>
+    <li><a class="dropdown-item" href="articles/beta-carotene-chd-example.html">Triangulation example: Beta-carotene and CHD</a></li>
     <li><a class="dropdown-item" href="articles/Creating-triangulation-datasets.html">Creating triangulation datasets</a></li>
     <li><a class="dropdown-item" href="articles/interactive-sensitivity.html">Interactive Sensitivity Analysis</a></li>
     <li><a class="dropdown-item" href="articles/sensitivity-analysis.html">Sensitivity Analyses in Triangulate</a></li>
@@ -50,6 +50,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/mcguinlu/triangulate/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -76,8 +84,12 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p>To install either run</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mcguinlutriangulate"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'triangulate'</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://mrcieu.r-universe.dev'</span>, <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mcguinlu/triangulate"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="warning-warning-notes">
@@ -104,7 +116,7 @@
 <h3 id="datasets">Datasets<a class="anchor" aria-label="anchor" href="#datasets"></a>
 </h3>
 <p>The approach described</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load libraries</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mcguinlu.github.io/triangulate">triangulate</a></span><span class="op">)</span></span>
@@ -149,33 +161,29 @@
 <span><span class="co">#&gt; 6          None Moderate Prop Away from null</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/tri_dat_check.html">tri_dat_check</a></span><span class="op">(</span><span class="va">dat_bias</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Looks good!</span></span>
-<span><span class="co">#&gt; All expected columns are present in the dataset.</span></span></code></pre></div>
+<span><span class="co">#&gt; tri_dat_check(): All expected columns are present (mode = 'minimal').</span></span></code></pre></div>
 <p>For details on how to create these datasets, see the <a href="https://mcguinlu.github.io/triangulate/articles/Creating-triangulation-datasets.html">Creating triangulation datasets</a> vignette (under construction).</p>
 <p>Once we load our data, helper functions will convert it to <em>long</em> format and convert to absolute directions of bias/indirectness.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">dat_bias</span> <span class="op">&lt;-</span> <span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_bias.html">dat_bias</a></span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span></span>
-<span><span class="co"># Convert to long format</span></span>
-<span><span class="fu"><a href="reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span>  </span>
-<span><span class="fu"><a href="reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span></span>
-<span><span class="fu"><a href="reference/tri_append_bias.html">tri_append_bias</a></span><span class="op">(</span><span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_bias_values.html">dat_bias_values</a></span><span class="op">)</span></span></code></pre></div>
-<p>Then apply the same approach to the indirectness dataset:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dat_ind</span> <span class="op">&lt;-</span> <span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_ind.html">dat_ind</a></span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">dat_bias</span> <span class="op">&lt;-</span> <span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_bias.html">dat_bias</a></span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span></span>
 <span><span class="co"># Convert to long format</span></span>
 <span><span class="fu"><a href="reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="reference/tri_append_indirect.html">tri_append_indirect</a></span><span class="op">(</span><span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_ind_values.html">dat_ind_values</a></span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/tri_append_bias.html">tri_append_bias</a></span><span class="op">(</span><span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_bias_values.html">dat_bias_values</a></span><span class="op">)</span></span></code></pre></div>
+<p>Then apply the same approach to the indirectness dataset:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat_ind</span> <span class="op">&lt;-</span> <span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_ind.html">dat_ind</a></span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Convert to long format</span></span>
+<span>  <span class="fu"><a href="reference/tri_to_long.html">tri_to_long</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/tri_absolute_direction.html">tri_absolute_direction</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/tri_append_indirect.html">tri_append_indirect</a></span><span class="op">(</span><span class="fu">triangulate</span><span class="fu">::</span><span class="va"><a href="reference/dat_ind_values.html">dat_ind_values</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="add-prior-distributions-of-biasindirectness">Add prior distributions of bias/indirectness<a class="anchor" aria-label="anchor" href="#add-prior-distributions-of-biasindirectness"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat_bias_values</span></span>
 <span><span class="co">#&gt;   domain        j bias_m_add bias_v_add bias_m_prop bias_v_prop</span></span>
 <span><span class="co">#&gt; 1    all     high       0.18       0.10        0.06       0.032</span></span>
@@ -186,17 +194,12 @@
 <h2 id="create-final-dataset-and-analyse">Create final dataset and analyse<a class="anchor" aria-label="anchor" href="#create-final-dataset-and-analyse"></a>
 </h2>
 <p>We now have two clean datasets, one for bias and one for indirectness, that we can use to</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dat_final</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tri_prep_data.html">tri_prep_data</a></span><span class="op">(</span><span class="va">dat_bias</span>, <span class="va">dat_ind</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Joining with `by = join_by(result_id)`</span></span>
-<span><span class="co">#&gt; Joining with `by = join_by(result_id)`</span></span>
-<span><span class="co">#&gt; Joining with `by = join_by(result_id)`</span></span>
-<span><span class="co">#&gt; Joining with `by = join_by(result_id)`</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat_final</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tri_prep_data.html">tri_prep_data</a></span><span class="op">(</span><span class="va">dat_bias</span>, <span class="va">dat_ind</span><span class="op">)</span></span></code></pre></div>
 <p>At this point, we have an unadjusted (<em>yi</em>, <em>vi</em>) and adjusted (<em>yi_adj</em>, <em>vi_adj</em>) estimates for each result.</p>
 <p>These estimates can then simply be passed to <code>metafor</code> for analysis</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">metafor</span><span class="fu">::</span><span class="fu"><a href="https://wviechtb.github.io/metafor/reference/rma.uni.html" class="external-link">rma</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">metafor</span><span class="fu">::</span><span class="fu"><a href="https://wviechtb.github.io/metafor/reference/rma.uni.html" class="external-link">rma</a></span><span class="op">(</span></span>
 <span>  yi <span class="op">=</span> <span class="va">yi</span>,</span>
 <span>  vi <span class="op">=</span> <span class="va">vi</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">dat_final</span>,</span>
@@ -209,8 +212,8 @@
 <span>  <span class="va">model</span>,</span>
 <span>  atransf <span class="op">=</span> <span class="va">exp</span>,</span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%" height="400"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png" alt="Forest plot" width="100%"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">model_adj</span> <span class="op">&lt;-</span> <span class="fu">metafor</span><span class="fu">::</span><span class="fu"><a href="https://wviechtb.github.io/metafor/reference/rma.uni.html" class="external-link">rma</a></span><span class="op">(</span></span>
 <span>  yi <span class="op">=</span> <span class="va">yi_adj</span>,</span>
@@ -225,7 +228,7 @@
 <span>  <span class="va">model_adj</span>,</span>
 <span>  atransf <span class="op">=</span> <span class="va">exp</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-2.png" width="100%" height="400"></p>
+<p><img src="reference/figures/README-unnamed-chunk-8-2.png" alt="Forest plot" width="100%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

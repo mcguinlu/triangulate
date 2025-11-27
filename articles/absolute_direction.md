@@ -1,13 +1,13 @@
 # Absolute direction of bias/indirectness
 
-### Absolute directions of bias/indirectness
+## Absolute directions of bias/indirectness
 
 The first step of the adjustment is to calculate the absolute direction
 of bias/indirectness. A helpful way to understand this. plotted on a
 standard forest plot. Note that the red arrows show the absolute
 direction of bias, ***not*** the direction of adjustment.
 
-![](exampleDirection.png)
+![Forest plot.](exampleDirection.png)
 
 For *additive* bias/indirectness, the position of the point estimate
 does not effect the absolute direction of bias. That is, regardless of
@@ -18,14 +18,14 @@ In contrast, for *proportional bias/indirectness*, the absolute
 direction of bias depends on the position of the effect estimate. There
 are two scenarios to consider:
 
-#### Point estimate below NULL
+### Point estimate below NULL
 
 If the effect estimate is below the null, then *bias towards the null*
 would be adjusted for by moving the effect estimate proportionally to
 the left. Conversely, *bias away from the null* would be adjusted for
 moving the point estimate proportionally to the right.
 
-#### Point estimate above NULL - Bias towards the NULL
+### Point estimate above NULL - Bias towards the NULL
 
 In contrast, if the effect estimate is below the null, then *bias
 towards the null* would be adjusted for by moving the effect estimate
@@ -39,7 +39,7 @@ the effect of the intervention is harmful (effect estimate above the
 null), bias towards the null would be adjusted for by moving the effect
 estimate proportionally to the left.
 
-### Adding the adjustment values
+## Adding the adjustment values
 
 The absolute direction is also used when defining the sign of the prior
 in the `tri_append_*()` functions. If the bias/indirectness is expected
@@ -67,7 +67,7 @@ See Section 6.1 of [Turner et
 al.](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1467-985X.2008.00547.x)
 for the derivation of these equations.
 
-### Example
+## Example
 
 To illustrate this and ensure that our code is working correctly, lets
 consider a simple dataset of 6 studies, with each study fulfilling one
@@ -86,7 +86,6 @@ example_data <- tibble(
           "Away from null", "Towards null",
           "Away from null", "Towards null")
 )
-
 
 # Complete the preparation steps of triangulate
 example_data_prepped <- example_data %>%

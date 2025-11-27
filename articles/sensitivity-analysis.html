@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Sensitivity Analyses in Triangulate • triangulate</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,11 +16,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">triangulate</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/absolute_direction.html">Absolute direction of bias/indirectness</a></li>
     <li><a class="dropdown-item" href="../articles/additional-levels-of-bias-and-indirectness.html">Adding additional levels of bias and indirectness</a></li>
-    <li><a class="dropdown-item" href="../articles/beta-carotene-chd-example.html">Beta-carotene CHD triangulation example</a></li>
+    <li><a class="dropdown-item" href="../articles/beta-carotene-chd-example.html">Triangulation example: Beta-carotene and CHD</a></li>
     <li><a class="dropdown-item" href="../articles/Creating-triangulation-datasets.html">Creating triangulation datasets</a></li>
     <li><a class="dropdown-item" href="../articles/interactive-sensitivity.html">Interactive Sensitivity Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/sensitivity-analysis.html">Sensitivity Analyses in Triangulate</a></li>
@@ -48,6 +48,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/mcguinlu/triangulate/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -64,7 +72,7 @@
       <h1>Sensitivity Analyses in Triangulate</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/mcguinlu/triangulate/blob/master/vignettes/articles/sensitivity-analysis.Rmd" class="external-link"><code>vignettes/articles/sensitivity-analysis.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mcguinlu/triangulate/blob/master/vignettes/sensitivity-analysis.Rmd" class="external-link"><code>vignettes/sensitivity-analysis.Rmd</code></a></small>
       <div class="d-none name"><code>sensitivity-analysis.Rmd</code></div>
     </div>
 
@@ -86,8 +94,7 @@ examining how different assumptions affect the pooled results.</p>
 <p>We define a small synthetic dataset mimicking studies with moderate
 bias and indirectness.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># creates 4 made up study results with effect estimates (yi) and variances (vi)</span></span>
+<code class="sourceCode R"><span><span class="co"># creates 4 made up study results with effect estimates (yi) and variances (vi)</span></span>
 <span></span>
 <span><span class="va">example_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  result_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>,</span>
@@ -102,8 +109,7 @@ bias and indirectness.</p>
 <p>We apply “moderate” priors for all studies, similar to a base-case
 analysis.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># assumptions about additive and proportional bias, each with some uncertainty</span></span>
+<code class="sourceCode R"><span><span class="co"># assumptions about additive and proportional bias, each with some uncertainty</span></span>
 <span></span>
 <span><span class="va">bias_priors</span> <span class="op">&lt;-</span> <span class="va">example_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
@@ -115,8 +121,6 @@ analysis.</p>
 <span>    bias_v_prop <span class="op">=</span> <span class="fl">0.02</span>,</span>
 <span>    type <span class="op">=</span> <span class="st">"RCT"</span>  <span class="co"># or whatever design you want</span></span>
 <span>  <span class="op">)</span></span>
-<span></span>
-<span></span>
 <span></span>
 <span><span class="va">indirectness_priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  result_id <span class="op">=</span> <span class="va">example_data</span><span class="op">$</span><span class="va">result_id</span>,</span>
@@ -134,8 +138,7 @@ analysis.</p>
 <p>We use tri_prep_data() and tri_calculate_adjusted_estimates() to get
 bias-adjusted effect sizes.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># this is where we combine the bias/indirectness priors with the study results and adjusts yi and vi to get new columns yi_adj and vi_adj for the adjusted estimate and varainces, respectively</span></span>
+<code class="sourceCode R"><span><span class="co"># this is where we combine the bias/indirectness priors with the study results and adjusts yi and vi to get new columns yi_adj and vi_adj for the adjusted estimate and varainces, respectively</span></span>
 <span></span>
 <span><span class="va">base_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_prep_data.html">tri_prep_data</a></span><span class="op">(</span><span class="va">bias_priors</span>, <span class="va">indirectness_priors</span><span class="op">)</span></span>
 <span><span class="va">base_adjusted</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tri_calculate_adjusted_estimates.html">tri_calculate_adjusted_estimates</a></span><span class="op">(</span><span class="va">base_prepped</span><span class="op">)</span></span>
@@ -180,18 +183,16 @@ a more conservative scenario.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> S4         0.15 -<span style="color: #BB0000;">0.086</span><span style="color: #BB0000; text-decoration: underline;">8</span>  0.025 0.094<span style="text-decoration: underline;">2</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="compare-results">compare results<a class="anchor" aria-label="anchor" href="#compare-results"></a>
+<h2 id="compare-results">Compare results<a class="anchor" aria-label="anchor" href="#compare-results"></a>
 </h2>
 <p>We plot the adjusted effect estimates under both scenarios.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># overlays the 2 scenarios to visually represent how the priors affect the estimated effect</span></span>
+<code class="sourceCode R"><span><span class="co"># overlays the 2 scenarios to visually represent how the priors affect the estimated effect</span></span>
 <span><span class="va">comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
 <span>  <span class="va">base_adjusted</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>scenario <span class="op">=</span> <span class="st">"Base"</span><span class="op">)</span>,</span>
 <span>  <span class="va">sensitive_adjusted</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>scenario <span class="op">=</span> <span class="st">"Stricter Bias"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>result_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">result_id</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  <span class="co"># or use your preferred order</span></span>
-<span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">comparison</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">result_id</span>, x <span class="op">=</span> <span class="va">yi_adj</span>, color <span class="op">=</span> <span class="va">scenario</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span><span class="fl">0.4</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
@@ -213,10 +214,10 @@ a more conservative scenario.</p>
 <span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="co">#&gt; `height` was translated to `width`.</span></span></code></pre></div>
-<p><img src="sensitivity-analysis_files/figure-html/compare-1.png" class="r-plt" width="700"></p>
+<p><img src="sensitivity-analysis_files/figure-html/compare-1.png" class="r-plt" alt="Plot comparing estimates" width="672"></p>
 </div>
 <div class="section level2">
-<h2 id="conclusion">conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
 </h2>
 <p>This vignette illustrates how small changes in prior assumptions can
 impact adjusted effect estimates. While triangulate doesn’t yet include

@@ -14,14 +14,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/mcguinlu/triangulate/blob/master/DESCRIPTION)
 
-McGuinness L, Jones T, Shapland C (2025). *triangulate: What the Package
-Does (One Line, Title Case)*. R package version 0.0.1,
+McGuinness L, Jones T, Shapland C (2025). *triangulate: Useful functions
+for performing evidence triangulation*. R package version 0.0.2,
 <https://mcguinlu.github.io/triangulate>.
 
     @Manual{,
-      title = {triangulate: What the Package Does (One Line, Title Case)},
+      title = {triangulate: Useful functions for performing evidence triangulation},
       author = {Luke McGuinness and Tassia Jones and Chin Yang Shapland},
       year = {2025},
-      note = {R package version 0.0.1},
+      note = {R package version 0.0.2},
       url = {https://mcguinlu.github.io/triangulate},
     }

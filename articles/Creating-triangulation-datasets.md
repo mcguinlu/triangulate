@@ -15,7 +15,7 @@ library(dplyr)
 #>     intersect, setdiff, setequal, union
 ```
 
-### Introduction
+## Introduction
 
 This vignette demonstrates how to create a triangulation dataset using
 the triangulate package. We will manually construct a small example
@@ -23,7 +23,7 @@ dataset and walk through the process of preparing it for triangulation,
 including appending bias/indirectness values and visualizing bias
 directions.
 
-### Step 1: Create the example dataset
+## Step 1: Create the example dataset
 
 We define a small dataset of six studies, each with a different
 combination of bias/indirectness type and direction.
@@ -53,13 +53,12 @@ example_data
 #> 6 S6        Study 6  0.3  0.029 moderate prop  Towards null
 ```
 
-### Step 2: Convert to long format
+## Step 2: Convert to long format
 
 Triangulation requires domain-level assessments to be in long format. We
 use tri_to_long() to convert from wide to long form.
 
 ``` r
-
 example_long <- tri_to_long(example_data)
 head(example_long)
 #> # A tibble: 6 × 8
@@ -73,13 +72,12 @@ head(example_long)
 #> 6 S6        Study 6  0.3  0.029 d1     moderate prop  towards null
 ```
 
-### Step 3: Add absolute direction
+## Step 3: Add absolute direction
 
 Calculate the absolute direction of bias/indirectness based on type,
 direction, and position of the estimate relative to the null.
 
 ``` r
-
 example_abs <- tri_absolute_direction(example_long)
 head(example_abs)
 #> # A tibble: 6 × 8
@@ -93,13 +91,12 @@ head(example_abs)
 #> 6 S6        Study 6  0.3  0.029 d1     moderate prop  left
 ```
 
-### Step 4: Append bias priors
+## Step 4: Append bias priors
 
 Next, we append numerical prior values (mean and SD) corresponding to
 domain judgments using tri_append_bias().
 
 ``` r
-
 example_bias <- tri_append_bias(example_abs, dat_bias_values)
 head(example_bias)
 #> # A tibble: 6 × 12
@@ -113,5 +110,3 @@ head(example_bias)
 #> 6 S6        Study 6  0.3  0.029 d1     modera… prop  left        0          0   
 #> # ℹ 2 more variables: bias_m_prop <dbl>, bias_v_prop <dbl>
 ```
-
-## TBC

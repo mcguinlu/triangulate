@@ -11,8 +11,6 @@ The function launches an interactive app with sliders that control the
 magnitude and uncertainty of additive and proportional bias. The
 adjusted effect estimates update automatically as the priors change.
 
-------------------------------------------------------------------------
-
 ## Example Data
 
 We use a small example dataset with four hypothetical studies.
@@ -27,8 +25,6 @@ example_data <- tibble::tibble(
 )
 ```
 
-------------------------------------------------------------------------
-
 ## Launch Interactive App
 
 To run the app, call the function below. This will open a Shiny window
@@ -42,11 +38,14 @@ interactive_bias_plot(example_data)
 > (e.g., RStudio). It won’t execute inside a knitted document but will
 > launch a Shiny app when run line-by-line.
 
-------------------------------------------------------------------------
-
 ## Conclusion
 
 This tool is useful for exploring how robust your triangulated estimates
 are to different prior assumptions. You can use it with your own data by
-passing a data frame with columns: - `result_id` - `study` - `type` -
-`yi` (effect estimate) - `vi` (variance)
+passing a data frame with columns:
+
+- `result_id`
+- `study`
+- `type`
+- `yi` (effect estimate)
+- `vi` (variance)

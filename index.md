@@ -18,8 +18,16 @@ This package deals with steps 5 and 6.
 
 ## Installation
 
+To install either run
+
 ``` r
-devtools::install_github("mcguinlutriangulate")
+install.packages('triangulate', repos = c('https://mrcieu.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+or
+
+``` r
+remotes::install_github("mcguinlu/triangulate")
 ```
 
 ## ⚠️ WARNING NOTES
@@ -94,8 +102,7 @@ head(dat_bias)
 #> 6          None Moderate Prop Away from null
 
 tri_dat_check(dat_bias)
-#> Looks good!
-#> All expected columns are present in the dataset.
+#> tri_dat_check(): All expected columns are present (mode = 'minimal').
 ```
 
 For details on how to create these datasets, see the [Creating
@@ -107,25 +114,22 @@ Once we load our data, helper functions will convert it to *long* format
 and convert to absolute directions of bias/indirectness.
 
 ``` r
-
 dat_bias <- triangulate::dat_bias %>%
 
 # Convert to long format
 tri_to_long() %>%
-  
-tri_absolute_direction() %>%
-
-tri_append_bias(triangulate::dat_bias_values)
+  tri_absolute_direction() %>%
+  tri_append_bias(triangulate::dat_bias_values)
 ```
 
 Then apply the same approach to the indirectness dataset:
 
 ``` r
 dat_ind <- triangulate::dat_ind %>%
-# Convert to long format
-tri_to_long() %>%
-tri_absolute_direction() %>%
-tri_append_indirect(triangulate::dat_ind_values)
+  # Convert to long format
+  tri_to_long() %>%
+  tri_absolute_direction() %>%
+  tri_append_indirect(triangulate::dat_ind_values)
 ```
 
 ## Add prior distributions of bias/indirectness
@@ -145,10 +149,6 @@ that we can use to
 
 ``` r
 dat_final <- tri_prep_data(dat_bias, dat_ind)
-#> Joining with `by = join_by(result_id)`
-#> Joining with `by = join_by(result_id)`
-#> Joining with `by = join_by(result_id)`
-#> Joining with `by = join_by(result_id)`
 ```
 
 At this point, we have an unadjusted (*yi*, *vi*) and adjusted
@@ -157,7 +157,6 @@ At this point, we have an unadjusted (*yi*, *vi*) and adjusted
 These estimates can then simply be passed to `metafor` for analysis
 
 ``` r
-
 model <- metafor::rma(
   yi = yi,
   vi = vi,
@@ -173,7 +172,7 @@ metafor::forest(
 )
 ```
 
-![](reference/figures/README-unnamed-chunk-8-1.png)
+![Forest plot](reference/figures/README-unnamed-chunk-8-1.png)
 
 ``` r
 
@@ -192,4 +191,4 @@ metafor::forest(
 )
 ```
 
-![](reference/figures/README-unnamed-chunk-8-2.png)
+![Forest plot](reference/figures/README-unnamed-chunk-8-2.png)

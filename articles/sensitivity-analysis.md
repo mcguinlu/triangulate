@@ -16,7 +16,6 @@ We define a small synthetic dataset mimicking studies with moderate bias
 and indirectness.
 
 ``` r
-
 # creates 4 made up study results with effect estimates (yi) and variances (vi)
 
 example_data <- tibble(
@@ -33,7 +32,6 @@ We apply “moderate” priors for all studies, similar to a base-case
 analysis.
 
 ``` r
-
 # assumptions about additive and proportional bias, each with some uncertainty
 
 bias_priors <- example_data %>%
@@ -46,8 +44,6 @@ bias_priors <- example_data %>%
     bias_v_prop = 0.02,
     type = "RCT"  # or whatever design you want
   )
-
-
 
 indirectness_priors <- tibble(
   result_id = example_data$result_id,
@@ -66,7 +62,6 @@ We use tri_prep_data() and tri_calculate_adjusted_estimates() to get
 bias-adjusted effect sizes.
 
 ``` r
-
 # this is where we combine the bias/indirectness priors with the study results and adjusts yi and vi to get new columns yi_adj and vi_adj for the adjusted estimate and varainces, respectively
 
 base_prepped <- tri_prep_data(bias_priors, indirectness_priors)
@@ -113,19 +108,17 @@ sensitive_adjusted %>%
 #> 4 S4         0.15 -0.0868  0.025 0.0942
 ```
 
-## compare results
+## Compare results
 
 We plot the adjusted effect estimates under both scenarios.
 
 ``` r
-
 # overlays the 2 scenarios to visually represent how the priors affect the estimated effect
 comparison <- bind_rows(
   base_adjusted %>% mutate(scenario = "Base"),
   sensitive_adjusted %>% mutate(scenario = "Stricter Bias")
 ) %>%
   mutate(result_id = factor(result_id, levels = paste0("S", 1:4)))  # or use your preferred order
-
 
 ggplot(comparison, aes(y = result_id, x = yi_adj, color = scenario)) +
   geom_point(position = position_dodge(0.4), size = 3) +
@@ -149,9 +142,10 @@ ggplot(comparison, aes(y = result_id, x = yi_adj, color = scenario)) +
 #> `height` was translated to `width`.
 ```
 
-![](sensitivity-analysis_files/figure-html/compare-1.png)
+![Plot comparing
+estimates](sensitivity-analysis_files/figure-html/compare-1.png)
 
-## conclusion
+## Conclusion
 
 This vignette illustrates how small changes in prior assumptions can
 impact adjusted effect estimates. While triangulate doesn’t yet include

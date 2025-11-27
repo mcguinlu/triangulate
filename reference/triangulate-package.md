@@ -1,4 +1,4 @@
-# triangulate: What the Package Does (One Line, Title Case)
+# triangulate: Useful functions for performing evidence triangulation
 
 What the package does (one paragraph).
 
@@ -9,6 +9,8 @@ Useful links:
 - <https://mcguinlu.github.io/triangulate>
 
 - <https://github.com/mcguinlu/triangulate>
+
+- <https://mrcieu.r-universe.dev/triangulate>
 
 - Report bugs at <https://github.com/mcguinlu/triangulate/issues>
 
