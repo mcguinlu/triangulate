@@ -22,8 +22,6 @@ knitr::opts_chunk$set(
 
 The goal of triangulate is to create a generalised version of the bias-adjusted meta-analysis approach originally proposed by Turner et al. 
 
-
-
 There are a number of steps to this process:
 
 1. Define the causal question of interest
@@ -36,6 +34,14 @@ There are a number of steps to this process:
 This package deals with steps 5 and 6.
 
 ## Installation
+
+To install either run
+
+```r
+install.packages('triangulate', repos = c('https://mrcieu.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+or
 
 ```{r, eval = FALSE}
 remotes::install_github("mcguinlu/triangulate")

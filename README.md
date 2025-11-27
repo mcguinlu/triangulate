@@ -28,6 +28,14 @@ This package deals with steps 5 and 6.
 
 ## Installation
 
+To install either run
+
+``` r
+install.packages('triangulate', repos = c('https://mrcieu.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+or
+
 ``` r
 remotes::install_github("mcguinlu/triangulate")
 ```
